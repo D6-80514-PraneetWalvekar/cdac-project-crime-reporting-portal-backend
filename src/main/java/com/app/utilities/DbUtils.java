@@ -1,2 +1,4 @@
-package com.app.utilities;public class DbUtils {
+package com.app.utilities;
+
+public class DbUtils {
 }

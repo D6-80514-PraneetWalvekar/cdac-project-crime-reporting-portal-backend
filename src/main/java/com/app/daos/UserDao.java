@@ -1,2 +1,4 @@
-package com.app.daos;public interface UserDao {
+package com.app.daos;
+
+public interface UserDao {
 }
