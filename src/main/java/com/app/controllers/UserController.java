@@ -1,2 +1,4 @@
-package com.app.controllers;public class UserController {
+package com.app.controllers;
+
+public class UserController {
 }

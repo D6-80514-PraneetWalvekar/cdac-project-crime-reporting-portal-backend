@@ -1,2 +1,4 @@
-package com.app.dtos;public class UserDTO {
+package com.app.dtos;
+
+public class UserDTO {
 }

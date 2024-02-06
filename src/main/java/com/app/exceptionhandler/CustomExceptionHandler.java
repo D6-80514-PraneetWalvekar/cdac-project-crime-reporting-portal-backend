@@ -1,2 +1,4 @@
-package com.app.exceptionhandler;public class CustomExceptionHandler {
+package com.app.exceptionhandler;
+
+public class CustomExceptionHandler {
 }
