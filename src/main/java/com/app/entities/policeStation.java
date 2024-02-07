@@ -3,34 +3,41 @@ package com.app.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.app.entities.end_users.InvestigatingOfficer;
+import com.app.entities.end_users.StationHouseOfficer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
-@Table(name="policeStation")
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString(exclude = {"ioOfficers"})
-@AllArgsConstructor
-public class policeStation extends BaseEntity {
+@Table(name="Police_Stations")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+public class PoliceStation {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 	@Column(length = 25)
 	private String location;
+
 	@Column(length = 25)
 	private String district;
-	@Column(length = 6)
+
+	@Column(length = 8)
 	private String pinCode;
+
+	@OneToOne
+	private StationHouseOfficer sho;
+
 	@OneToMany(mappedBy = "station" )
-	private List<OfficerDetails> ioOfficers = new ArrayList<OfficerDetails>();
+	private List<InvestigatingOfficer> ioOfficers = new ArrayList<>();
+
+	@OneToMany(mappedBy = "policeStation" )
+	private List<Complaint> complaints = new ArrayList<>();
 	
 }
