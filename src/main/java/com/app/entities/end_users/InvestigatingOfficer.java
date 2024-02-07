@@ -30,10 +30,10 @@ public class InvestigatingOfficer extends BaseEntity {
 	private LocalDate joiningDate;
 
 	@Column
-	private int numberOfCases;
+	private Integer numberOfCases;
 
 	@Column
-	private int noOfCasesSolved;
+	private Integer noOfCasesSolved;
 
 	@Column(nullable = false)
 	private String dutyStatus;

@@ -28,6 +28,9 @@ public class PoliceStation {
 	@Column(length = 25)
 	private String district;
 
+	@Column(length = 25)
+	private String state;
+
 	@Column(length = 8)
 	private String pinCode;
 
