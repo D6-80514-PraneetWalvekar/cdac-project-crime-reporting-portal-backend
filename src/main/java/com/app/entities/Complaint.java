@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
-import com.app.entities.end_users.Citizen;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -16,12 +15,8 @@ import lombok.Setter;
 @Table(name="complaints")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class Complaint{
+public class Complaint extends BaseEntity{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long complaintId;
-	
 	@Column
 	private String incidentDescription;
 
@@ -43,11 +38,6 @@ public class Complaint{
 	@Column
 	private String additionalInfo;
 
-	@ManyToOne
-	@JoinColumn(name = "citizen_id" , nullable = false)
-	private Citizen citizen;
-
 	@Column
 	private boolean isFIR = false;
-
 }

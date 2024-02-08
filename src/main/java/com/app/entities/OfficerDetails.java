@@ -10,7 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.app.entities.enums.GenderEnum;
+import com.app.entities.enums.RoleEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,30 +29,41 @@ public class OfficerDetails extends BaseEntity {
 	
 	@Column(length = 30,nullable = false)
 	private String officerFirstName;
+
 	@Column(length = 30,nullable = false)
 	private String officerLastName;
+
 	@Column(length = 20,nullable = false)
 	private String designation;
+
 	@Column(length = 30,nullable = false, unique = true)
 	private String mobileNo;
+
 	@Enumerated(EnumType.STRING)
 	private GenderEnum gender;
+
 	@Column(length = 30,nullable = false , unique = true)
 	private String email;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+
 	private LocalDate joiningDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+
+	@Column(name="date_of_birth")
 	private LocalDate DOB;
-	@Column(nullable = true)
+
+	@Column(nullable = false)
 	private int numberOfCases;
-	@Column(nullable = true)
+
+	@Column(nullable = false)
 	private int noOfCasesSolved;
+
 	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)
 	private RoleEnum role;
+
 	@Column(nullable = false)
 	private String dutyStatus;
+
 	@ManyToOne
 	@JoinColumn(name = "station_code",nullable = false)
-	private policeStation station;
+	private PoliceStation station;
 }

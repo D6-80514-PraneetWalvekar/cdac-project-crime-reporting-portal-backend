@@ -27,20 +27,23 @@ public class ProgressList extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "io_ID",nullable = false)
 	private OfficerDetails officerID;
+
 	@OneToOne
 	@JoinColumn(name = "complaint_ID",nullable = false)
 	private Complaint complaint;
+
 	@Column
 	private String remark;
+
 	@Column(length = 25,nullable = false)
 	private String status;
 //	@ManyToOne
 //	@JoinColumn(name = "Crime_type",nullable = false)
 //	private CrimeType type;
+
 	@Column
 	private String crimeSubType;
+
 	@Column
 	private int duration;
-	
-	
 }	

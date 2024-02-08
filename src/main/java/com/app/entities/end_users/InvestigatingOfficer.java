@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.app.entities.BaseEntity;
 import com.app.entities.FirstInformationReport;
 import com.app.entities.PoliceStation;
 import org.springframework.format.annotation.DateTimeFormat;
