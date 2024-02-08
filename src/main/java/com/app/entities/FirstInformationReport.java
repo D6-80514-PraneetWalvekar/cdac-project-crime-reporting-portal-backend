@@ -7,11 +7,8 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class FirstInformationReport {
+public class FirstInformationReport extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
     @JoinColumn(name = "complaint_id")
     @OneToOne
     Complaint complaint;

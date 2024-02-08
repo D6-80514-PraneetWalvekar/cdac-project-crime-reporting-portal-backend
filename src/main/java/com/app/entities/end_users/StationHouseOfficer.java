@@ -1,5 +1,6 @@
 package com.app.entities.end_users;
 
+import com.app.entities.BaseEntity;
 import com.app.entities.PoliceStation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

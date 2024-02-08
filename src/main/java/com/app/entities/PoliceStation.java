@@ -16,11 +16,7 @@ import lombok.Setter;
 @Table(name="Police_Stations")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class PoliceStation {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+public class PoliceStation extends BaseEntity{
 
 	@Column(length = 25)
 	private String location;

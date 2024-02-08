@@ -1,15 +1,23 @@
 package com.app.entities.end_users;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.app.entities.BaseEntity;
 import com.app.entities.Complaint;
+import com.app.entities.enums.GenderEnum;
+import com.app.entities.enums.TitleEnum;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,22 +30,39 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(exclude = {"complaints"})
 @Entity
-@Table(name = "citizen")
+@Table(name = "user")
 public class Citizen extends BaseEntity {
-
-	@Column(length = 30,nullable = false)
-	private String fatherName;
-
-	@Column(length = 100, nullable = false)
-	private String address;
-
+	
+	@Enumerated(EnumType.STRING)
+	@Column(length = 5)
+	private TitleEnum title;
+	@Column(length = 25,nullable = false)
+	private String name;
+	@Column(length = 25,nullable = false)
+	private String fatherName; 
+	@Column
+	private String address;//---------------------------------------
+	@Column(length = 30,nullable = false, unique = true)
+	private String email;
+	@Column(length = 12 ,nullable = false , unique = true)
+	private String mobileNo;
 	@Column(length = 14 ,nullable = false , unique = true)
-	private String aadhaarNo;
-
+	private String addharNo;
+	@Column(nullable = false )
+	private int age;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate DOB;
+	@Column(length = 30)
+	private String currentAddress; //--------------------------------
+	@Enumerated(EnumType.STRING)
+	@Column(length = 10)
+	private GenderEnum gender;
 	@Column(length = 25)
 	private String occupation;
-
-	@OneToMany(mappedBy ="citizen", cascade = CascadeType.ALL,orphanRemoval = true)
-	List<Complaint> complaints = new ArrayList<>();
-
+	@OneToMany(mappedBy ="user", cascade = CascadeType.ALL,orphanRemoval = true)
+	List<Complaint> complaints = new ArrayList<Complaint>();
+//	@Column(length = 20)
+//	private String language;
+	
+	
 }
