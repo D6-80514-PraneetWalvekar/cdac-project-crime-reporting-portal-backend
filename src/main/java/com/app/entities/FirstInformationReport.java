@@ -2,11 +2,15 @@ package com.app.entities;
 
 import com.app.entities.end_users.InvestigatingOfficer;
 import com.app.entities.enums.Status;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Getter @Setter @NoArgsConstructor
 public class FirstInformationReport extends BaseEntity{
 
     @JoinColumn(name = "complaint_id")
