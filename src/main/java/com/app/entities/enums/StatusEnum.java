@@ -1,5 +1,5 @@
 package com.app.entities.enums;
 
-public enum Status {
+public enum StatusEnum {
     ONGOING, CHARGESHEET_FILED, REJECTED, CLOSED
 }

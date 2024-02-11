@@ -3,7 +3,7 @@ package com.app.services;
 import com.app.custom_exceptions.ResourseNotFound;
 import com.app.entities.*;
 import com.app.entities.end_users.*;
-import com.app.entities.enums.Status;
+import com.app.entities.enums.StatusEnum;
 
 import com.app.dtos.*;
 import com.app.daos.*;
@@ -77,7 +77,7 @@ public class SHOServiceImpl implements SHOService{
         FirstInformationReport fir = new FirstInformationReport();
         fir.setComplaint(complaint);
         fir.setInvestigatingOfficer(ioDao.getReferenceById(io_id));
-        fir.setStatus(Status.ONGOING);
+        fir.setStatusEnum(StatusEnum.ONGOING);
         firDao.save(fir);
     }
 }

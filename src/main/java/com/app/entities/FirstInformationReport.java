@@ -1,7 +1,7 @@
 package com.app.entities;
 
 import com.app.entities.end_users.InvestigatingOfficer;
-import com.app.entities.enums.Status;
+import com.app.entities.enums.StatusEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,5 +26,5 @@ public class FirstInformationReport extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
-    private Status status;
+    private StatusEnum statusEnum;
 }

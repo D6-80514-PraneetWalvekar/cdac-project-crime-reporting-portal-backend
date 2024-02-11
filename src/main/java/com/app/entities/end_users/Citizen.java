@@ -19,13 +19,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(exclude = {"complaints"})
 @Entity
 @Table(name = "citizens")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Citizen extends BaseEntityUsers {
 
 	@Column(length = 30,nullable = false)

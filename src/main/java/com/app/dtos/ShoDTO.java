@@ -1,6 +1,6 @@
 package com.app.dtos;
 
-import com.app.entities.enums.Gender;
+import com.app.entities.enums.GenderEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class ShoDTO {
 
     private LocalDate DoB;
 
-    private Gender gender;
+    private GenderEnum gender;
 
     private String email;
 

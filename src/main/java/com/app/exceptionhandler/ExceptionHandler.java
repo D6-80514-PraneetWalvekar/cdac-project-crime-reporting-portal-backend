@@ -7,26 +7,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
-public class ExeptionHandler {
+public class ExceptionHandler {
 
-    @ExceptionHandler(ResourseNotFound.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(ResourseNotFound.class)
     public ResponseEntity<ApiResponse> handleResourseNotFound(ResourseNotFound ex)
     {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(ex.getMessage()));
     }
-    @ExceptionHandler(RuntimeException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ApiResponse> handleRuntimeException(RuntimeException ex)
     {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(ex.getMessage()));
     }
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex)
     {
         Map<String , String > map = ex.getFieldErrors().stream().collect(Collectors.toMap(
@@ -34,7 +33,7 @@ public class ExeptionHandler {
         ));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
     }
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex)
     {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("wrong type!"));

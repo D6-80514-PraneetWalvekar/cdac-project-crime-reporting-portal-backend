@@ -1,7 +1,7 @@
 package com.app.entities.end_users;
 
-import com.app.entities.enums.Gender;
-import com.app.entities.enums.Title;
+import com.app.entities.enums.GenderEnum;
+import com.app.entities.enums.TitleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +11,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 @MappedSuperclass
 public class BaseEntityUsers {
 
@@ -24,7 +22,7 @@ public class BaseEntityUsers {
 
         @Enumerated(EnumType.STRING)
         @Column(length = 5)
-        private Title title;
+        private TitleEnum title;
 
         @Column(length = 25,nullable = false)
         private String fName;
@@ -40,7 +38,7 @@ public class BaseEntityUsers {
 
         @Enumerated(EnumType.STRING)
         @Column(length = 10)
-        private Gender gender;
+        private GenderEnum gender;
 
         @Column(length = 30,nullable = false, unique = true)
         private String email;
