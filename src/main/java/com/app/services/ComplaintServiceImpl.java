@@ -13,7 +13,7 @@ import com.app.daos.CitizenDAO;
 import com.app.dtos.ComplaintDTO;
 import com.app.entities.Complaint;
 import com.app.entities.end_users.Citizen;
-import com.app.exceptions.NoSuchEntityExistsException;
+import com.app.exception.NoSuchEntityExistsException;
 
 @Service
 @Transactional
@@ -39,6 +39,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 									.orElseThrow(() -> new NoSuchEntityExistsException("User Not Found !! "));
 		Complaint newComplaint = mapper.map(newComp, Complaint.class);
 		currentUser.addUserInComplaint(newComplaint);
+		compDao.save(newComplaint);
 		return mapper.map(newComplaint, ComplaintDTO.class);
 
 	}

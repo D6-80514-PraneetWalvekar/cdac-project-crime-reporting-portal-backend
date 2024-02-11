@@ -59,10 +59,14 @@ public class Citizen extends BaseEntity {
 	private GenderEnum gender;
 	@Column(length = 25)
 	private String occupation;
-	@OneToMany(mappedBy ="user", cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy ="citizen", cascade = CascadeType.ALL,orphanRemoval = true)
 	List<Complaint> complaints = new ArrayList<Complaint>();
 //	@Column(length = 20)
 //	private String language;
+	
+	public void addUserInComplaint(Complaint newComplaint) {
+		this.getComplaints().add(newComplaint);
+	}
 	
 	
 }
