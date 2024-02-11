@@ -2,6 +2,8 @@ package com.app.controllers;
 
 import java.util.List;
 
+import com.app.entities.enums.StatusEnum;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,9 +68,6 @@ public class CitizenController {
 				.body(complaintService.deleteComplaint(complaint_id));
 	}
 	
-//	@GetMapping("{citizen_id}/complaint/{status}")
-//	public ResponseEntity<?> getListOfComplaintOnStatus(@PathVariable String status){
-//		return ResponseEntity.status(HttpStatus.OK).body(complaintService.getListOfComplaintByStatus(status));
-//	}
+
 	
 }

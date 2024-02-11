@@ -4,14 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.app.entities.Address;
 import com.app.entities.BaseEntity;
 import com.app.entities.Complaint;
 import com.app.entities.enums.GenderEnum;
@@ -24,49 +19,60 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(exclude = {"complaints"})
 @Entity
-@Table(name = "user")
-public class Citizen extends BaseEntity {
-	
-	@Enumerated(EnumType.STRING)
-	@Column(length = 5)
-	private TitleEnum title;
-	@Column(length = 25,nullable = false)
-	private String name;
-	@Column(length = 25,nullable = false)
-	private String fatherName; 
-	@Column
-	private String address;//---------------------------------------
-	@Column(length = 30,nullable = false, unique = true)
-	private String email;
-	@Column(length = 12 ,nullable = false , unique = true)
-	private String mobileNo;
+@Table(name = "citizens")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+public class Citizen extends BaseEntityUsers {
+
+	@Column(length = 30,nullable = false)
+	private String fatherName;
+
 	@Column(length = 14 ,nullable = false , unique = true)
 	private String addharNo;
+
 	@Column(nullable = false )
 	private int age;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+
+	@Column(name="data_of_birth")
 	private LocalDate DOB;
-	@Column(length = 30)
-	private String currentAddress; //--------------------------------
+
+
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name = "addressLine1", column = @Column(name = "current_address_line_one")),
+			@AttributeOverride(name = "addressLine2", column = @Column(name = "current_address_line_two")),
+			@AttributeOverride(name = "district", column = @Column(name = "current_address_district")),
+			@AttributeOverride(name = "state", column = @Column(name = "current_address_state")),
+			@AttributeOverride(name = "country", column = @Column(name = "current_address_country")),
+			@AttributeOverride(name = "pincode", column = @Column(name = "current_address_pincode")),
+	})
+	private Address currentAddress;
+
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name = "addressLine1", column = @Column(name = "permanent_address_line_one")),
+			@AttributeOverride(name = "addressLine2", column = @Column(name = "permanent_address_line_two")),
+			@AttributeOverride(name = "district", column = @Column(name = "permanent_address_district")),
+			@AttributeOverride(name = "state", column = @Column(name = "permanent_address_state")),
+			@AttributeOverride(name = "country", column = @Column(name = "permanent_address_country")),
+			@AttributeOverride(name = "pincode", column = @Column(name = "permanent_address_pincode")),
+	})
+	private Address permanentAddress;
+
 	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
 	private GenderEnum gender;
 	@Column(length = 25)
 	private String occupation;
+
 	@OneToMany(mappedBy ="citizen", cascade = CascadeType.ALL,orphanRemoval = true)
 	List<Complaint> complaints = new ArrayList<Complaint>();
-//	@Column(length = 20)
-//	private String language;
 	
 	public void addUserInComplaint(Complaint newComplaint) {
 		this.getComplaints().add(newComplaint);
 	}
 	
 	
+
 }
