@@ -26,23 +26,14 @@ import lombok.ToString;
 @ToString(exclude = {"complaints"})
 @Entity
 @Table(name = "user")
-public class Citizen extends BaseEntity {
-	
-	@Enumerated(EnumType.STRING)
-	@Column(length = 5)
-	private TitleEnum title;
-	@Column(length = 25,nullable = false)
-	private String name;
-	@Column(length = 25,nullable = false)
-	private String fatherName; 
-	@Column
-	private String address;//---------------------------------------
-	@Column(length = 30,nullable = false, unique = true)
-	private String email;
-	@Column(length = 12 ,nullable = false , unique = true)
-	private String mobileNo;
+public class Citizen extends BaseEntityUsers {
+
+	@Column(length = 30,nullable = false)
+	private String fatherName;
+
 	@Column(length = 14 ,nullable = false , unique = true)
 	private String addharNo;
+
 	@Column(nullable = false )
 	private int age;
 
@@ -77,6 +68,7 @@ public class Citizen extends BaseEntity {
 	private GenderEnum gender;
 	@Column(length = 25)
 	private String occupation;
+
 	@OneToMany(mappedBy ="citizen", cascade = CascadeType.ALL,orphanRemoval = true)
 	List<Complaint> complaints = new ArrayList<Complaint>();
 }
