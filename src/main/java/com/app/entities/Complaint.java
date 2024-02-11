@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
+import com.app.entities.end_users.Citizen;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -41,4 +42,8 @@ public class Complaint extends BaseEntity{
 
 	@Column
 	private boolean isFIR = false;
+
+	@ManyToOne
+	private Citizen citizen;
+
 }

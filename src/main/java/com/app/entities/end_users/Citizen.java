@@ -77,6 +77,6 @@ public class Citizen extends BaseEntity {
 	private GenderEnum gender;
 	@Column(length = 25)
 	private String occupation;
-	@OneToMany(mappedBy ="user", cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy ="citizen", cascade = CascadeType.ALL,orphanRemoval = true)
 	List<Complaint> complaints = new ArrayList<Complaint>();
 }

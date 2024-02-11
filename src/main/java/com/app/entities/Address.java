@@ -10,15 +10,15 @@ import javax.persistence.*;
 @Embeddable
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Address extends BaseEntity {
+//@NoArgsConstructor
+//@AllArgsConstructor
+public class Address {
 
     @Column(name = "address_line_one", nullable = false)
-    private String addressline1;
+    private String addressLine1;
 
     @Column(name = "address_line_two", nullable = false)
-    private String addressline2;
+    private String addressLine2;
 
     @Column(length = 30, nullable = false)
     private String district;

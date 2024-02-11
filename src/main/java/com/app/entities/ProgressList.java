@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.app.entities.end_users.InvestigatingOfficer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class ProgressList extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "io_ID",nullable = false)
-	private OfficerDetails officerID;
+	private InvestigatingOfficer officerID;
 
 	@OneToOne
 	@JoinColumn(name = "complaint_ID",nullable = false)

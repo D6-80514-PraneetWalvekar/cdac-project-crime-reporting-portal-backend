@@ -82,6 +82,5 @@ public class InvestigatingOfficer extends BaseEntity {
 	private PoliceStation station;
 
 	@OneToMany(mappedBy = "investigatingOfficer")
-	@JoinColumn(name = "first_information_report_id")
 	private List<FirstInformationReport> cases = new ArrayList<>();
 }
