@@ -21,8 +21,10 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "citizens")
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Citizen extends BaseEntityUsers {
 
 	@Column(length = 30,nullable = false)
