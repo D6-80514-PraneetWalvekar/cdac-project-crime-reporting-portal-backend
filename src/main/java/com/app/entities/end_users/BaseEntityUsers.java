@@ -34,7 +34,7 @@ public class BaseEntityUsers {
         private int age;
 
         @DateTimeFormat(pattern = "yyyy-MM-dd")
-        private LocalDate DoB;
+        private LocalDate DOB;
 
         @Enumerated(EnumType.STRING)
         @Column(length = 10)
@@ -48,6 +48,24 @@ public class BaseEntityUsers {
 
         @Column(length = 12 ,nullable = false , unique = true)
         private String mobileNo;
+
+        
+		public BaseEntityUsers( String title, String fName, String lName, int age,
+				String gender, String email, String password, String mobileNo,String dob)
+		{
+			
+			this.title = TitleEnum.valueOf(title);
+			this.fName = fName;
+			this.lName = lName;
+			this.age = age;
+			DOB = LocalDate.parse(dob);
+			this.gender = GenderEnum.valueOf(gender);
+			this.email = email;
+			this.password = password;
+			this.mobileNo = mobileNo;
+		}
+        
+        
 }
 
 

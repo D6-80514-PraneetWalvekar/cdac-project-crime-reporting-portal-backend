@@ -22,8 +22,10 @@ import lombok.Setter;
 
 @Entity
 @Table(name="Investigating_Officers")
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor 
+@AllArgsConstructor
 public class InvestigatingOfficer extends BaseEntity {
 
 	@Column(length = 30,nullable = false)

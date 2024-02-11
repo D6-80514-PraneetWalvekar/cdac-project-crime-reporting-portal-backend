@@ -21,22 +21,17 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "citizens")
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Citizen extends BaseEntityUsers {
 
-	@Column(length = 30,nullable = false)
+	@Column(length = 30, nullable = false)
 	private String fatherName;
 
-	@Column(length = 14 ,nullable = false , unique = true)
+	@Column(length = 14, nullable = false, unique = true)
 	private String addharNo;
-
-	@Column(nullable = false )
-	private int age;
-
-	@Column(name="data_of_birth")
-	private LocalDate DOB;
-
 
 	@Embedded
 	@AttributeOverrides({
@@ -45,8 +40,7 @@ public class Citizen extends BaseEntityUsers {
 			@AttributeOverride(name = "district", column = @Column(name = "current_address_district")),
 			@AttributeOverride(name = "state", column = @Column(name = "current_address_state")),
 			@AttributeOverride(name = "country", column = @Column(name = "current_address_country")),
-			@AttributeOverride(name = "pincode", column = @Column(name = "current_address_pincode")),
-	})
+			@AttributeOverride(name = "pincode", column = @Column(name = "current_address_pincode")), })
 	private Address currentAddress;
 
 	@Embedded
@@ -56,23 +50,29 @@ public class Citizen extends BaseEntityUsers {
 			@AttributeOverride(name = "district", column = @Column(name = "permanent_address_district")),
 			@AttributeOverride(name = "state", column = @Column(name = "permanent_address_state")),
 			@AttributeOverride(name = "country", column = @Column(name = "permanent_address_country")),
-			@AttributeOverride(name = "pincode", column = @Column(name = "permanent_address_pincode")),
-	})
+			@AttributeOverride(name = "pincode", column = @Column(name = "permanent_address_pincode")), })
 	private Address permanentAddress;
 
-	@Enumerated(EnumType.STRING)
-	@Column(length = 10)
-	private GenderEnum gender;
 	@Column(length = 25)
 	private String occupation;
 
-	@OneToMany(mappedBy ="citizen", cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "citizen", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<Complaint> complaints = new ArrayList<Complaint>();
-	
+
 	public void addUserInComplaint(Complaint newComplaint) {
 		this.getComplaints().add(newComplaint);
 	}
-	
-	
+
+	public Citizen(String fatherName, String addharNo, Address currentAddress, Address permanentAddress,
+			String occupation, String title, String fName, String lName, int age,String gender,
+			String email, String password, String mobileNo,String dob) {
+		super(title, fName, lName, age, gender, email, password, mobileNo,dob);
+		this.fatherName = fatherName;
+		this.addharNo = addharNo;
+		this.currentAddress = currentAddress;
+		this.permanentAddress = permanentAddress;
+		this.occupation = occupation;
+
+	}
 
 }

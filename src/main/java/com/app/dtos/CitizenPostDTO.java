@@ -6,6 +6,7 @@ import javax.persistence.AccessType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import com.app.entities.Address;
 import com.app.entities.enums.GenderEnum;
 import com.app.entities.enums.TitleEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -48,6 +49,8 @@ public class CitizenPostDTO {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@NotBlank(message = "Required!")
 	private String password;
+	private Address currentAddress;
+	private Address permanentAddress;
 	
 	
 }

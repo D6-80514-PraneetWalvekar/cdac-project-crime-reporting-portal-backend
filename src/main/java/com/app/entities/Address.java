@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Embeddable
 @Getter
 @Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 
     @Column(name = "address_line_one", nullable = false)
@@ -30,7 +30,7 @@ public class Address {
     private String country;
 
     @Column(length = 6,nullable = false)
-    private int pincode;
+    private String pincode;
 
 
 }
