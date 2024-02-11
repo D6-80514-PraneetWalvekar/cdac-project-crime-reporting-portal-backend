@@ -8,6 +8,8 @@ import com.app.entities.end_users.Citizen;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
+import com.app.entities.end_users.Citizen;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +45,10 @@ public class Complaint extends BaseEntity{
 	@Column
 	private boolean isFIR = false;
 
+	
 	@ManyToOne
+	@JoinColumn(name = "citizen_id")
 	private Citizen citizen;
+	
 
 }

@@ -68,4 +68,11 @@ public class Citizen extends BaseEntityUsers {
 
 	@OneToMany(mappedBy ="citizen", cascade = CascadeType.ALL,orphanRemoval = true)
 	List<Complaint> complaints = new ArrayList<Complaint>();
+	
+	public void addUserInComplaint(Complaint newComplaint) {
+		this.getComplaints().add(newComplaint);
+	}
+	
+	
+
 }
