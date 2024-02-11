@@ -4,14 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.app.entities.Address;
 import com.app.entities.BaseEntity;
 import com.app.entities.Complaint;
 import com.app.entities.enums.GenderEnum;
@@ -50,10 +45,33 @@ public class Citizen extends BaseEntity {
 	private String addharNo;
 	@Column(nullable = false )
 	private int age;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+
+	@Column(name="data_of_birth")
 	private LocalDate DOB;
-	@Column(length = 30)
-	private String currentAddress; //--------------------------------
+
+
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name = "addressLine1", column = @Column(name = "current_address_line_one")),
+			@AttributeOverride(name = "addressLine2", column = @Column(name = "current_address_line_two")),
+			@AttributeOverride(name = "district", column = @Column(name = "current_address_district")),
+			@AttributeOverride(name = "state", column = @Column(name = "current_address_state")),
+			@AttributeOverride(name = "country", column = @Column(name = "current_address_country")),
+			@AttributeOverride(name = "pincode", column = @Column(name = "current_address_pincode")),
+	})
+	private Address currentAddress;
+
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name = "addressLine1", column = @Column(name = "permanent_address_line_one")),
+			@AttributeOverride(name = "addressLine2", column = @Column(name = "permanent_address_line_two")),
+			@AttributeOverride(name = "district", column = @Column(name = "permanent_address_district")),
+			@AttributeOverride(name = "state", column = @Column(name = "permanent_address_state")),
+			@AttributeOverride(name = "country", column = @Column(name = "permanent_address_country")),
+			@AttributeOverride(name = "pincode", column = @Column(name = "permanent_address_pincode")),
+	})
+	private Address permanentAddress;
+
 	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
 	private GenderEnum gender;
@@ -61,8 +79,4 @@ public class Citizen extends BaseEntity {
 	private String occupation;
 	@OneToMany(mappedBy ="user", cascade = CascadeType.ALL,orphanRemoval = true)
 	List<Complaint> complaints = new ArrayList<Complaint>();
-//	@Column(length = 20)
-//	private String language;
-	
-	
 }
