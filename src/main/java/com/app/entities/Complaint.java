@@ -40,10 +40,6 @@ public class Complaint extends BaseEntity{
 	@Column
 	private String additionalInfo;
 
-	@ManyToOne
-	@JoinColumn(name = "citizen_id" , nullable = false)
-	private Citizen citizen;
-
 	@Column
 	private boolean isFIR = false;
 

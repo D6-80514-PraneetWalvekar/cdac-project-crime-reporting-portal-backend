@@ -17,6 +17,5 @@ public class FirDTO {
     private String incidentPlace;
     private String witness;
     private String additionalInfo;
-
     private String status;
 }

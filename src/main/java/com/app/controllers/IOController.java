@@ -1,12 +1,10 @@
 package com.app.controllers;
 
+import com.app.dtos.IOupdateComplaintDTO;
 import com.app.services.IOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("/IO")
 public class IOController {
@@ -19,9 +17,9 @@ public class IOController {
         return ResponseEntity.ok().body( ioService.getComplaints(IO_id));
     }
     @PutMapping("/{IO_id}/complaints/{complaint_id}/update")
-    public ResponseEntity<?> updateComplaint(@PathVariable Long IO_id, @PathVariable Long complaint_id)
+    public ResponseEntity<?> updateComplaint(@PathVariable Long IO_id, @PathVariable Long complaint_id, @RequestBody IOupdateComplaintDTO updateComplaint)
     {
-        ioService.updateComplaint(IO_id, complaint_id);
+        ioService.updateComplaint(IO_id, complaint_id, updateComplaint);
         return ResponseEntity.ok().build();
     }
 

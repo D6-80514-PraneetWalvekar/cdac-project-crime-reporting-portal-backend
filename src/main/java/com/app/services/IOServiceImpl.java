@@ -1,6 +1,7 @@
 package com.app.services;
 
 
+import com.app.daos.FIRDao;
 import com.app.entities.*;
 import com.app.dtos.*;
 import com.app.custom_exceptions.ResourseNotFound;
@@ -24,6 +25,9 @@ public class IOServiceImpl implements IOService{
     @Autowired
     IODao ioDao;
 
+    @Autowired
+    FIRDao firDao;
+
     @Override
     public List<complaintsDTO> getComplaints(Long io_id) {
         return ioDao.findById(io_id).orElseThrow(()->new ResourseNotFound("Could not get")).getCases()
@@ -36,7 +40,9 @@ public class IOServiceImpl implements IOService{
 
 
     @Override
-    public void updateComplaint(Long io_id, Long complaint_id) {
-        
+    public void updateComplaint(Long io_id, Long complaint_id, IOupdateComplaintDTO complaintDTO) {
+        FirstInformationReport fir = firDao.findById(complaint_id).orElseThrow();
+        fir.setRemark(complaintDTO.getRemark());
+        fir.setStatusEnum(complaintDTO.getStatusEnum());
     }
 }
