@@ -21,6 +21,9 @@ public class FirstInformationReport extends BaseEntity{
     @ManyToOne
     private InvestigatingOfficer investigatingOfficer;
 
+    @Column(length = 100)
+    private String remark;
+
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
     private Status status;

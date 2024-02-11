@@ -25,7 +25,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString(exclude = {"complaints"})
 @Entity
-@Table(name = "user")
+@Table(name = "citizens")
 public class Citizen extends BaseEntityUsers {
 
 	@Column(length = 30,nullable = false)
