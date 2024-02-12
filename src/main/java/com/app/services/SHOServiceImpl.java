@@ -72,12 +72,14 @@ public class SHOServiceImpl implements SHOService{
     }
 
     @Override
-    public void acceptComplaint(Long complaint_id, Long io_id) {
+    public String acceptComplaint(Long complaint_id, Long io_id) {
         Complaint complaint = complaintDao.findById(complaint_id).orElseThrow(() -> new ResourseNotFound("Could not get details"));
         FirstInformationReport fir = new FirstInformationReport();
+        complaint.setFIR(true);
         fir.setComplaint(complaint);
         fir.setInvestigatingOfficer(ioDao.getReferenceById(io_id));
         fir.setStatusEnum(StatusEnum.ONGOING);
         firDao.save(fir);
+        return "Complaint accepted and assigned to "+io_id;
     }
 }

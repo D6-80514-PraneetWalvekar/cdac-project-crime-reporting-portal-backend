@@ -31,13 +31,6 @@ public class Citizen extends BaseEntityUsers {
 	@Column(length = 14 ,nullable = false , unique = true)
 	private String addharNo;
 
-	@Column(nullable = false )
-	private int age;
-
-	@Column(name="data_of_birth")
-	private LocalDate DOB;
-
-
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "addressLine1", column = @Column(name = "current_address_line_one")),

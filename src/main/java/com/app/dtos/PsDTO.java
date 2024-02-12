@@ -9,9 +9,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PsDTO {
 
-    private String location;
+    private String policeStationAddressAddressline1;
 
-    private String district;
+    private String policeStationAddressDistrict;
 
-    private String pinCode;
+    private String policeStationAddressPincode;
 }

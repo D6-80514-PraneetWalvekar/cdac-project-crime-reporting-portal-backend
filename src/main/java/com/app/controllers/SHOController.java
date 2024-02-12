@@ -43,7 +43,6 @@ public class SHOController {
     @PutMapping("/{SHO_id}/police-station/complaints/{complaint_id}")
     public ResponseEntity<?> acceptComplaint(@PathVariable Long SHO_id, @PathVariable Long complaint_id, @RequestBody Long io_id)
     {
-        shoService.acceptComplaint(complaint_id, io_id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(shoService.acceptComplaint(complaint_id, io_id));
     }
 }

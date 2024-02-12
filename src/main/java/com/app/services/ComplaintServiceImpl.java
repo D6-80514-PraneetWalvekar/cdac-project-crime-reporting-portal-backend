@@ -42,7 +42,11 @@ public class ComplaintServiceImpl implements ComplaintService {
 	@Override
 	public List<ComplaintDTO> getCompById(Long citizen_id) {
 		List<Complaint> comp = citizenDao.findById(citizen_id).orElseThrow().getComplaints();
-		return comp.stream().map(compl -> mapper.map(compl, ComplaintDTO.class)).collect(Collectors.toList());
+		return comp.stream().map(compl -> {
+			ComplaintDTO dto = mapper.map(compl, ComplaintDTO.class);
+			dto.setPoliceStationId(compl.getPoliceStation().getID());
+			return dto;
+		}).collect(Collectors.toList());
 	}
 
 	@Override
@@ -50,7 +54,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 		Citizen currentUser = citizenDao.findById(citizenid)
 									.orElseThrow(() -> new NoSuchEntityExistsException("User Not Found !! "));
 		Complaint newComplaint = mapper.map(newComp, Complaint.class);
-		newComplaint.setPoliceStation(policeStationDao.getReferenceById(newComp.getPoliceStation()));
+		newComplaint.setPoliceStation(policeStationDao.getReferenceById(newComp.getPoliceStationId()));
 
 		newComplaint.setCitizen(currentUser);
 		currentUser.getComplaints().add(newComplaint);

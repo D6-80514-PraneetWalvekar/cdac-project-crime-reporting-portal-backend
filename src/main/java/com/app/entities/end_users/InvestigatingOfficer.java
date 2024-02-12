@@ -54,10 +54,10 @@ public class InvestigatingOfficer extends BaseEntity {
 	private LocalDate joiningDate;
 
 	@Column(columnDefinition="int default '0'")
-	private int numberOfCases;
+	private Integer numberOfCases;
 
 	@Column(columnDefinition="int default '0'")
-	private int noOfCasesSolved;
+	private Integer noOfCasesSolved;
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)

@@ -31,7 +31,7 @@ public class BaseEntityUsers {
         private String lName;
 
         @Column(nullable = false)
-        private int age;
+        private Integer age;
 
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate DOB;

@@ -32,15 +32,15 @@ import lombok.ToString;
 @ToString
 
 public class ComplaintDTO {
-	@JsonProperty(access = Access.READ_ONLY)
-	private Long complaintId;
+//	@JsonProperty(access = Access.READ_ONLY)
+//	private Long complaintId;
 	@NotBlank(message = "Please provide some Description")
 	private String incidentDescription;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate incidentDate;
 	private String suspects;
 	@NotNull
-	private Long policeStation;
+	private Long policeStationId;
 	@NotBlank
 	private String incidentPlace;
 	private String witness;

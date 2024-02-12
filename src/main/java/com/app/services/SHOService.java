@@ -11,6 +11,6 @@ public interface SHOService {
 
     public List<IoDTO> getIOs(Long sho_id);
 
-    public void acceptComplaint(Long complaint_id, Long io_id);
+    public String acceptComplaint(Long complaint_id, Long io_id);
 }
 

@@ -49,15 +49,15 @@ public class Complaint extends BaseEntity{
 	@JoinColumn(name = "citizen_id")
 	private Citizen citizen;
 
-	public Complaint(String incidentDescription, LocalDate incidentDate, String suspects, PoliceStation policeStation, String incidentPlace, String witness, String additionalInfo, boolean isFIR, Citizen citizen) {
-		this.incidentDescription = incidentDescription;
-		this.incidentDate = incidentDate;
-		this.suspects = suspects;
-		this.policeStation = policeStation;
-		this.incidentPlace = incidentPlace;
-		this.witness = witness;
-		this.additionalInfo = additionalInfo;
-		this.isFIR = isFIR;
-		this.citizen = citizen;
-	}
+//	public Complaint(String incidentDescription, LocalDate incidentDate, String suspects, PoliceStation policeStation, String incidentPlace, String witness, String additionalInfo, boolean isFIR, Citizen citizen) {
+//		this.incidentDescription = incidentDescription;
+//		this.incidentDate = incidentDate;
+//		this.suspects = suspects;
+//		this.policeStation = policeStation;
+//		this.incidentPlace = incidentPlace;
+//		this.witness = witness;
+//		this.additionalInfo = additionalInfo;
+//		this.isFIR = isFIR;
+//		this.citizen = citizen;
+//	}
 }
