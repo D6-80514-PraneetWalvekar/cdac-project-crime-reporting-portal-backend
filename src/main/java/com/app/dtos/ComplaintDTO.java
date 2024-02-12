@@ -40,7 +40,7 @@ public class ComplaintDTO {
 	private LocalDate incidentDate;
 	private String suspects;
 	@NotNull
-	private int policeStation;
+	private Long policeStation;
 	@NotBlank
 	private String incidentPlace;
 	private String witness;

@@ -21,17 +21,22 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "citizens")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Citizen extends BaseEntityUsers {
 
-	@Column(length = 30, nullable = false)
+	@Column(length = 30,nullable = false)
 	private String fatherName;
 
-	@Column(length = 14, nullable = false, unique = true)
+	@Column(length = 14 ,nullable = false , unique = true)
 	private String addharNo;
+
+	@Column(nullable = false )
+	private int age;
+
+	@Column(name="data_of_birth")
+	private LocalDate DOB;
+
 
 	@Embedded
 	@AttributeOverrides({
@@ -40,7 +45,8 @@ public class Citizen extends BaseEntityUsers {
 			@AttributeOverride(name = "district", column = @Column(name = "current_address_district")),
 			@AttributeOverride(name = "state", column = @Column(name = "current_address_state")),
 			@AttributeOverride(name = "country", column = @Column(name = "current_address_country")),
-			@AttributeOverride(name = "pincode", column = @Column(name = "current_address_pincode")), })
+			@AttributeOverride(name = "pincode", column = @Column(name = "current_address_pincode")),
+	})
 	private Address currentAddress;
 
 	@Embedded

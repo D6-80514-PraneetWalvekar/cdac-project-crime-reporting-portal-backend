@@ -29,8 +29,7 @@ public class PoliceStation extends BaseEntity{
 			@AttributeOverride(name = "pincode", column = @Column(name = "police_station_address_pincode")),
 	})
 	private Address policeStationAddress;
-	@OneToOne
-	@JoinColumn(name = "sho_id")
+	@OneToOne(mappedBy = "station")
 	private StationHouseOfficer sho;
 
 	@OneToMany(mappedBy = "station" )
@@ -38,5 +37,8 @@ public class PoliceStation extends BaseEntity{
 
 	@OneToMany(mappedBy = "policeStation" )
 	private List<Complaint> complaints = new ArrayList<>();
-	
+
+	public PoliceStation(Address policeStationAddress) {
+		this.policeStationAddress = policeStationAddress;
+	}
 }

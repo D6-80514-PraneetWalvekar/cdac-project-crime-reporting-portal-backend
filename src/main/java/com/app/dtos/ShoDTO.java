@@ -14,27 +14,26 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class ShoDTO {
 
-	@NotBlank
-    private String fName;
-	@NotBlank
-    private String lName;
+    private String officerFirstName;
+
+    private String officerLastName;
 
     private int age;
 
-    private LocalDate DoB;
+    private LocalDate DOB;
 
     private GenderEnum gender;
-    @NotBlank
+
     private String email;
-    
+
     private String mobileNo;
     private String designation;
-    
+
     private LocalDate joiningDate;
 
     private String dutyStatus;
 
     private String policeStation;
-    
+
     private Address officerAddress;
 }

@@ -62,4 +62,5 @@ public class StationHouseOfficer extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "station_id",nullable = false)
     private PoliceStation station;
+
 }

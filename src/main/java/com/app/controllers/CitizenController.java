@@ -26,7 +26,7 @@ import ch.qos.logback.core.status.Status;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/citizen")
 @Validated
 public class CitizenController {
 	

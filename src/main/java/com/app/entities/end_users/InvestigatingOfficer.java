@@ -3,6 +3,7 @@ package com.app.entities.end_users;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.*;
 
@@ -83,4 +84,19 @@ public class InvestigatingOfficer extends BaseEntity {
 
 	@OneToMany(mappedBy = "investigatingOfficer")
 	private List<FirstInformationReport> cases = new ArrayList<>();
+
+
+	public InvestigatingOfficer(String io1, String io, String number, String s, GenderEnum genderEnum, String mail, LocalDate parse, LocalDate parse1, RoleEnum roleEnum, DutyStatus dutyStatus, PoliceStation byId) {
+		this.officerFirstName = io1;
+		this.officerLastName = io;
+		this.mobileNo = number;
+		this.designation = s;
+		this.gender = genderEnum;
+		this.email = mail;
+		this.DOB = parse;
+		this.joiningDate = parse1;
+		this.role = roleEnum;
+		this.dutyStatus = dutyStatus;
+		this.station = byId;
+	}
 }

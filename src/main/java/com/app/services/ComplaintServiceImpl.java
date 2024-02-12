@@ -3,12 +3,12 @@ package com.app.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 import com.app.daos.FIRDao;
+import com.app.daos.PoliceStationDao;
 import com.app.dtos.FirDTO;
 import com.app.entities.FirstInformationReport;
+import com.app.entities.PoliceStation;
 import com.app.entities.enums.StatusEnum;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +34,8 @@ public class ComplaintServiceImpl implements ComplaintService {
 	private FIRDao firDao;
 
 	@Autowired
+	private PoliceStationDao policeStationDao;
+	@Autowired
 	private ModelMapper mapper;
 
 	
@@ -48,10 +50,14 @@ public class ComplaintServiceImpl implements ComplaintService {
 		Citizen currentUser = citizenDao.findById(citizenid)
 									.orElseThrow(() -> new NoSuchEntityExistsException("User Not Found !! "));
 		Complaint newComplaint = mapper.map(newComp, Complaint.class);
+		newComplaint.setPoliceStation(policeStationDao.getReferenceById(newComp.getPoliceStation()));
 
-		currentUser.addUserInComplaint(newComplaint);
+		newComplaint.setCitizen(currentUser);
+		currentUser.getComplaints().add(newComplaint);
+
 		compDao.save(newComplaint);
-		return mapper.map(newComplaint, ComplaintDTO.class);
+
+		return newComp;
 
 	}
 
@@ -61,12 +67,11 @@ public class ComplaintServiceImpl implements ComplaintService {
 									.orElseThrow(() -> new NoSuchEntityExistsException("Complaint does not exist !!"));
 		Citizen currenCitizen = currentComp.getCitizen();
 
-		int index = currenCitizen.getComplaints().indexOf(currentComp);
-		currenCitizen.getComplaints().remove(index);
+		currenCitizen.getComplaints().remove(currentComp);
 		compDao.deleteById(complaint_id);
+
 		return "Complaint Deleted";
 	}
-
 
 	//find FIRs of citizen by status enum
 	@Override
@@ -85,6 +90,5 @@ public class ComplaintServiceImpl implements ComplaintService {
 				}
 		).collect(Collectors.toList());
 	}
-
 
 }
