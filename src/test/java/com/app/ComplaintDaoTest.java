@@ -33,10 +33,10 @@ public class ComplaintDaoTest {
 
     @Test
     void insertComplaint(){
-        PoliceStation ps1 = policeStationDao.findById(Long.valueOf(1)).orElseThrow(()->new NoSuchEntityExistsException("Police station with id does not exist"));
-        Citizen citizen1 =  citizenDAO.findById(Long.valueOf(1)).orElseThrow(()->new NoSuchEntityExistsException("Citizen with id does not exist"));
-        PoliceStation ps2 = policeStationDao.findById(Long.valueOf(2)).orElseThrow(()->new NoSuchEntityExistsException("Police station with id does not exist"));
-        Citizen citizen2 =  citizenDAO.findById(Long.valueOf(2)).orElseThrow(()->new NoSuchEntityExistsException("Citizen with id does not exist"));
+        PoliceStation ps1 = policeStationDao.findById(1L).orElseThrow(()->new NoSuchEntityExistsException("Police station with id does not exist"));
+        Citizen citizen1 =  citizenDAO.findById(1L).orElseThrow(()->new NoSuchEntityExistsException("Citizen with id does not exist"));
+        PoliceStation ps2 = policeStationDao.findById(2L).orElseThrow(()->new NoSuchEntityExistsException("Police station with id does not exist"));
+        Citizen citizen2 =  citizenDAO.findById(2L).orElseThrow(()->new NoSuchEntityExistsException("Citizen with id does not exist"));
         List<Complaint> complaints = new ArrayList<>();
         complaints.add(new Complaint("Iphone is lost", LocalDate.parse("2022-10-19"), "Chitransh", ps1, "Hinjewadi", "Praneet", "aaaaa", false, citizen1));
         complaints.add(new Complaint("Car is stolen", LocalDate.parse("2021-11-18"), "Amar", ps1, "Hinjewadi", "Chitransh", "bbbbb", false, citizen2));

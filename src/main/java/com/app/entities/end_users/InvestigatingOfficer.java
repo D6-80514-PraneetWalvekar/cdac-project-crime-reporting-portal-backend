@@ -14,6 +14,8 @@ import com.app.entities.PoliceStation;
 import com.app.entities.enums.DutyStatus;
 import com.app.entities.enums.GenderEnum;
 import com.app.entities.enums.RoleEnum;
+import com.app.entities.enums.TitleEnum;
+import org.springframework.aop.IntroductionInterceptor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -27,12 +29,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor 
 @AllArgsConstructor
-public class InvestigatingOfficer extends BaseEntity {
+public class InvestigatingOfficer extends BaseEntityUsers {
 
-	@Column(length = 20,nullable = false)
+
+	@Column(length = 20)
 	private String designation;
-
-	@Column(nullable = false)
+	@Column
 	private LocalDate joiningDate;
 
 	@Column(columnDefinition="int default '0'")
@@ -42,7 +44,7 @@ public class InvestigatingOfficer extends BaseEntity {
 	private Integer noOfCasesSolved;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column
 	private RoleEnum role;
 
 	@Embedded
@@ -58,7 +60,7 @@ public class InvestigatingOfficer extends BaseEntity {
 	private Address officerAddress;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column
 	private DutyStatus dutyStatus;
 
 	@ManyToOne
@@ -68,4 +70,8 @@ public class InvestigatingOfficer extends BaseEntity {
 	@OneToMany(mappedBy = "investigatingOfficer")
 	private List<FirstInformationReport> cases = new ArrayList<>();
 
+	public InvestigatingOfficer(String fName, String lName, String email, String mobileNo, PoliceStation station) {
+		super(fName, lName, email, mobileNo);
+		this.station = station;
+	}
 }

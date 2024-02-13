@@ -33,7 +33,7 @@ public class ShoDTO {
 
     private String dutyStatus;
 
-    private String policeStation;
+    private String policeStationAddressline1;
 
     private Address officerAddress;
 }

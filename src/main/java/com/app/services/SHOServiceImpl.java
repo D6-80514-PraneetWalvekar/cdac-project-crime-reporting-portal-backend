@@ -42,7 +42,7 @@ public class SHOServiceImpl implements SHOService{
 
         StationHouseOfficer sho = shoDao.findById(sho_id).orElseThrow(()->new ResourseNotFound("Could not get details"));
         ShoDTO dto = mapper.map(sho, ShoDTO.class);
-        dto.setPoliceStation(sho.getStation().getPoliceStationAddress().getAddressLine1());
+        dto.setPoliceStationAddressline1(sho.getStation().getPoliceStationAddress().getAddressLine1());
 
         return dto;
     }

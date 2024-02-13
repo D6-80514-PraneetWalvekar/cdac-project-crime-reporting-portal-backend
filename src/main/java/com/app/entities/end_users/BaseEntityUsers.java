@@ -18,7 +18,7 @@ public class BaseEntityUsers {
 
         @javax.persistence.Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long Id;
+        private Long ID;
 
         @Enumerated(EnumType.STRING)
         @Column(length = 5)
@@ -30,7 +30,7 @@ public class BaseEntityUsers {
         @Column(length = 25,nullable = false)
         private String lName;
 
-        @Column(nullable = false)
+        @Column
         private Integer age;
 
         @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -43,14 +43,14 @@ public class BaseEntityUsers {
         @Column(length = 30,nullable = false, unique = true)
         private String email;
 
-        @Column(length = 30, nullable = false)
+        @Column(length = 30)
         private String password;
 
         @Column(length = 12 ,nullable = false , unique = true)
         private String mobileNo;
 
         
-		public BaseEntityUsers(TitleEnum title, String fName, String lName, int age,
+		public BaseEntityUsers(TitleEnum title, String fName, String lName, Integer age,
 				String gender, String email, String password, String mobileNo,String dob)
 		{
 			
@@ -64,8 +64,13 @@ public class BaseEntityUsers {
 			this.password = password;
 			this.mobileNo = mobileNo;
 		}
-        
-        
+
+    public BaseEntityUsers(String fName, String lName, String email, String mobileNo) {
+        this.fName = fName;
+        this.lName = lName;
+        this.email = email;
+        this.mobileNo = mobileNo;
+    }
 }
 
 

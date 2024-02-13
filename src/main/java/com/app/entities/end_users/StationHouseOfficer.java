@@ -18,9 +18,9 @@ import java.time.LocalDate;
 @Table(name="Station_House_Officers")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class StationHouseOfficer extends BaseEntity {
+public class StationHouseOfficer extends BaseEntityUsers {
 
-    @Column(length = 20,nullable = false)
+    @Column(length = 20)
     private String designation;
 
 
@@ -35,11 +35,11 @@ public class StationHouseOfficer extends BaseEntity {
     })
     private Address officerAddress;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate joiningDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private DutyStatus dutyStatus;
 
     @OneToOne
@@ -49,4 +49,9 @@ public class StationHouseOfficer extends BaseEntity {
     @ManyToOne
     private SPOfficer spOfficer;
 
+    public StationHouseOfficer(String fName, String lName, String email, String mobileNo, PoliceStation station, SPOfficer spOfficer) {
+        super(fName, lName, email, mobileNo);
+        this.station = station;
+        this.spOfficer = spOfficer;
+    }
 }

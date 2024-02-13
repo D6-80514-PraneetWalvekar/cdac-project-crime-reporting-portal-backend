@@ -79,10 +79,11 @@ public class SPServiceImpl implements SPService{
         if(!ps1.getSho().equals(sho1) || !ps2.getSho().equals(sho2))
             return null;
         ps1.setSho(sho2);
-        ps2.setSho(sho1);
-
-        sho1.setStation(ps2);
         sho2.setStation(ps1);
+
+        ps2.setSho(sho1);
+        sho1.setStation(ps2);
+
 
         return new TransferDTO(sho2.getID(), ps2.getID(), sho1.getID(), ps2.getID());
     }

@@ -28,7 +28,7 @@ public class PoliceStation extends BaseEntity{
 			@AttributeOverride(name = "country", column = @Column(name = "police_station_address_country")),
 			@AttributeOverride(name = "pincode", column = @Column(name = "police_station_address_pincode")),
 	})
-	private Address policeStationAddress;
+	private Address policeStationAddress = new Address();
 	@OneToOne(mappedBy = "station")
 	private StationHouseOfficer sho;
 
@@ -41,7 +41,8 @@ public class PoliceStation extends BaseEntity{
 	@ManyToOne
 	private SPOfficer spOfficer;
 
-	public PoliceStation(Address policeStationAddress) {
-		this.policeStationAddress = policeStationAddress;
+	public PoliceStation(SPOfficer spOfficer, String address) {
+		this.spOfficer = spOfficer;
+		this.policeStationAddress.setAddressLine1(address);
 	}
 }
