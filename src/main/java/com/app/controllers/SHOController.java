@@ -2,6 +2,7 @@ package com.app.controllers;
 
 import com.app.services.SHOService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,5 +45,11 @@ public class SHOController {
     public ResponseEntity<?> acceptComplaint(@PathVariable Long SHO_id, @PathVariable Long complaint_id, @RequestBody Long io_id)
     {
         return ResponseEntity.ok().body(shoService.acceptComplaint(complaint_id, io_id));
+    }
+
+    @PostMapping("{SHO_id}/police-station/IO/add")
+    public ResponseEntity<?> addIO(@PathVariable Long SHO_id, @RequestBody IOPostDTO ioAdd)
+    {
+        return ResponseEntity.status(HttpStatus.CREATED).body(shoService.addIO(SHO_id, ioAdd));
     }
 }

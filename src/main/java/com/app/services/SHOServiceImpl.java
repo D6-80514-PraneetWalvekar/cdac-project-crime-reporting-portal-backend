@@ -82,4 +82,12 @@ public class SHOServiceImpl implements SHOService{
         firDao.save(fir);
         return "Complaint accepted and assigned to "+io_id;
     }
+
+    @Override
+    public IoDTO addIO(Long sho_id, IOPostDTO ioAdd) {
+        InvestigatingOfficer io = mapper.map(ioAdd, InvestigatingOfficer.class);
+        io.setStation(shoDao.getReferenceById(sho_id).getStation());
+
+        return  mapper.map(ioDao.save(io), IoDTO.class);
+    }
 }
