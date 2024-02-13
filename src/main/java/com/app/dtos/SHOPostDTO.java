@@ -1,16 +1,21 @@
 package com.app.dtos;
 
 import com.app.entities.Address;
+import com.app.entities.enums.DutyStatus;
 import com.app.entities.enums.GenderEnum;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+
+@Getter @Setter
 public class SHOPostDTO {
     private String fName;
 
     private String lName;
 
-    private int age;
+    private Integer age;
 
     private LocalDate DOB;
 
@@ -23,7 +28,7 @@ public class SHOPostDTO {
 
     private LocalDate joiningDate;
 
-    private String dutyStatus;
+    private DutyStatus dutyStatus;
 
     private String policeStation;
 

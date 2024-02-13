@@ -18,7 +18,7 @@ public class ShoDTO {
 
     private String lName;
 
-    private int age;
+    private Integer age;
 
     private LocalDate DOB;
 

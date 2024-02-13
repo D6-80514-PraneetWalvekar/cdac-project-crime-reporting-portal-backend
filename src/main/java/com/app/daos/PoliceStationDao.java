@@ -4,4 +4,5 @@ import com.app.entities.PoliceStation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PoliceStationDao extends JpaRepository<PoliceStation, Long> {
+    public PoliceStation findPoliceStationByPoliceStationAddress_AddressLine1(String addressLine1);
 }

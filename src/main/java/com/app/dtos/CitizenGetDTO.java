@@ -26,8 +26,6 @@ import lombok.ToString;
 public class CitizenGetDTO {
 	
 	private TitleEnum title;
-	
-	private Long Id;
 	@NotBlank(message = " required!")
 	private String fName;
 	@NotBlank(message = " required!")
