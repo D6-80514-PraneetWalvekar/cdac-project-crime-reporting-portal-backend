@@ -19,7 +19,6 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor
 public class PoliceStation extends BaseEntity{
 
-
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "addressLine1", column = @Column(name = "police_station_address_line_one")),
