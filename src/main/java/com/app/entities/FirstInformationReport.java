@@ -27,4 +27,5 @@ public class FirstInformationReport extends BaseEntity{
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
     private StatusEnum statusEnum;
+
 }

@@ -20,26 +20,9 @@ import java.time.LocalDate;
 @NoArgsConstructor @AllArgsConstructor
 public class StationHouseOfficer extends BaseEntity {
 
-    @Column(length = 30,nullable = false)
-    private String officerFirstName;
-
-    @Column(length = 30,nullable = false)
-    private String officerLastName;
-
-    @Column(length = 30,nullable = false, unique = true)
-    private String mobileNo;
-
     @Column(length = 20,nullable = false)
     private String designation;
 
-    @Enumerated(EnumType.STRING)
-    private GenderEnum gender;
-
-    @Column(length = 30,nullable = false , unique = true)
-    private String email;
-
-    @Column(name="date_of_birth")
-    private LocalDate DOB;
 
     @Embedded
     @AttributeOverrides({
@@ -62,5 +45,8 @@ public class StationHouseOfficer extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "station_id",nullable = false)
     private PoliceStation station;
+
+    @ManyToOne
+    private SPOfficer spOfficer;
 
 }

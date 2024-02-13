@@ -50,11 +50,11 @@ public class BaseEntityUsers {
         private String mobileNo;
 
         
-		public BaseEntityUsers( String title, String fName, String lName, int age,
+		public BaseEntityUsers(TitleEnum title, String fName, String lName, int age,
 				String gender, String email, String password, String mobileNo,String dob)
 		{
 			
-			this.title = TitleEnum.valueOf(title);
+			this.title = title;
 			this.fName = fName;
 			this.lName = lName;
 			this.age = age;

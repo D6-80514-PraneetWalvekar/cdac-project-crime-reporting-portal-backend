@@ -29,26 +29,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class InvestigatingOfficer extends BaseEntity {
 
-	@Column(length = 30,nullable = false)
-	private String officerFirstName;
-
-	@Column(length = 30,nullable = false)
-	private String officerLastName;
-
-	@Column(length = 30,nullable = false, unique = true)
-	private String mobileNo;
-
 	@Column(length = 20,nullable = false)
 	private String designation;
-
-	@Enumerated(EnumType.STRING)
-	private GenderEnum gender;
-
-	@Column(length = 30,nullable = false , unique = true)
-	private String email;
-
-	@Column(name="date_of_birth")
-	private LocalDate DOB;
 
 	@Column(nullable = false)
 	private LocalDate joiningDate;
@@ -59,7 +41,7 @@ public class InvestigatingOfficer extends BaseEntity {
 	@Column(columnDefinition="int default '0'")
 	private Integer noOfCasesSolved;
 
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private RoleEnum role;
 
@@ -72,6 +54,7 @@ public class InvestigatingOfficer extends BaseEntity {
 			@AttributeOverride(name = "country", column = @Column(name = "officer_address_country")),
 			@AttributeOverride(name = "pincode", column = @Column(name = "officer_address_pincode")),
 	})
+
 	private Address officerAddress;
 
 	@Enumerated(EnumType.STRING)
@@ -85,18 +68,4 @@ public class InvestigatingOfficer extends BaseEntity {
 	@OneToMany(mappedBy = "investigatingOfficer")
 	private List<FirstInformationReport> cases = new ArrayList<>();
 
-
-	public InvestigatingOfficer(String io1, String io, String number, String s, GenderEnum genderEnum, String mail, LocalDate parse, LocalDate parse1, RoleEnum roleEnum, DutyStatus dutyStatus, PoliceStation byId) {
-		this.officerFirstName = io1;
-		this.officerLastName = io;
-		this.mobileNo = number;
-		this.designation = s;
-		this.gender = genderEnum;
-		this.email = mail;
-		this.DOB = parse;
-		this.joiningDate = parse1;
-		this.role = roleEnum;
-		this.dutyStatus = dutyStatus;
-		this.station = byId;
-	}
 }

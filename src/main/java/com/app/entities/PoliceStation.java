@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.app.entities.end_users.InvestigatingOfficer;
+import com.app.entities.end_users.SPOfficer;
 import com.app.entities.end_users.StationHouseOfficer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,6 +38,9 @@ public class PoliceStation extends BaseEntity{
 
 	@OneToMany(mappedBy = "policeStation" )
 	private List<Complaint> complaints = new ArrayList<>();
+
+	@ManyToOne
+	private SPOfficer spOfficer;
 
 	public PoliceStation(Address policeStationAddress) {
 		this.policeStationAddress = policeStationAddress;
