@@ -63,7 +63,7 @@ public class Citizen extends BaseEntityUsers {
 	}
 
 	public Citizen(String fatherName, String addharNo, Address currentAddress, Address permanentAddress,
-			String occupation, String title, String fName, String lName, int age,String gender,
+			String occupation, TitleEnum title, String fName, String lName, int age,String gender,
 			String email, String password, String mobileNo,String dob) {
 		super(title, fName, lName, age, gender, email, password, mobileNo,dob);
 		this.fatherName = fatherName;

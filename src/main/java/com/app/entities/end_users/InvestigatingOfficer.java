@@ -14,6 +14,8 @@ import com.app.entities.PoliceStation;
 import com.app.entities.enums.DutyStatus;
 import com.app.entities.enums.GenderEnum;
 import com.app.entities.enums.RoleEnum;
+import com.app.entities.enums.TitleEnum;
+import org.springframework.aop.IntroductionInterceptor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -27,30 +29,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor 
 @AllArgsConstructor
-public class InvestigatingOfficer extends BaseEntity {
+public class InvestigatingOfficer extends BaseEntityUsers {
 
-	@Column(length = 30,nullable = false)
-	private String officerFirstName;
 
-	@Column(length = 30,nullable = false)
-	private String officerLastName;
-
-	@Column(length = 30,nullable = false, unique = true)
-	private String mobileNo;
-
-	@Column(length = 20,nullable = false)
+	@Column(length = 20)
 	private String designation;
-
-	@Enumerated(EnumType.STRING)
-	private GenderEnum gender;
-
-	@Column(length = 30,nullable = false , unique = true)
-	private String email;
-
-	@Column(name="date_of_birth")
-	private LocalDate DOB;
-
-	@Column(nullable = false)
+	@Column
 	private LocalDate joiningDate;
 
 	@Column(columnDefinition="int default '0'")
@@ -59,8 +43,8 @@ public class InvestigatingOfficer extends BaseEntity {
 	@Column(columnDefinition="int default '0'")
 	private Integer noOfCasesSolved;
 
-	@Enumerated(EnumType.ORDINAL)
-	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	@Column
 	private RoleEnum role;
 
 	@Embedded
@@ -72,10 +56,11 @@ public class InvestigatingOfficer extends BaseEntity {
 			@AttributeOverride(name = "country", column = @Column(name = "officer_address_country")),
 			@AttributeOverride(name = "pincode", column = @Column(name = "officer_address_pincode")),
 	})
+
 	private Address officerAddress;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column
 	private DutyStatus dutyStatus;
 
 	@ManyToOne
@@ -85,18 +70,8 @@ public class InvestigatingOfficer extends BaseEntity {
 	@OneToMany(mappedBy = "investigatingOfficer")
 	private List<FirstInformationReport> cases = new ArrayList<>();
 
-
-	public InvestigatingOfficer(String io1, String io, String number, String s, GenderEnum genderEnum, String mail, LocalDate parse, LocalDate parse1, RoleEnum roleEnum, DutyStatus dutyStatus, PoliceStation byId) {
-		this.officerFirstName = io1;
-		this.officerLastName = io;
-		this.mobileNo = number;
-		this.designation = s;
-		this.gender = genderEnum;
-		this.email = mail;
-		this.DOB = parse;
-		this.joiningDate = parse1;
-		this.role = roleEnum;
-		this.dutyStatus = dutyStatus;
-		this.station = byId;
+	public InvestigatingOfficer(String fName, String lName, String email, String mobileNo, PoliceStation station) {
+		super(fName, lName, email, mobileNo);
+		this.station = station;
 	}
 }

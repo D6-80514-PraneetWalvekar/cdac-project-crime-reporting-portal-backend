@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.app.entities.end_users.InvestigatingOfficer;
+import com.app.entities.end_users.SPOfficer;
 import com.app.entities.end_users.StationHouseOfficer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,6 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor
 public class PoliceStation extends BaseEntity{
 
-
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "addressLine1", column = @Column(name = "police_station_address_line_one")),
@@ -28,7 +28,7 @@ public class PoliceStation extends BaseEntity{
 			@AttributeOverride(name = "country", column = @Column(name = "police_station_address_country")),
 			@AttributeOverride(name = "pincode", column = @Column(name = "police_station_address_pincode")),
 	})
-	private Address policeStationAddress;
+	private Address policeStationAddress = new Address();
 	@OneToOne(mappedBy = "station")
 	private StationHouseOfficer sho;
 
@@ -38,7 +38,11 @@ public class PoliceStation extends BaseEntity{
 	@OneToMany(mappedBy = "policeStation" )
 	private List<Complaint> complaints = new ArrayList<>();
 
-	public PoliceStation(Address policeStationAddress) {
-		this.policeStationAddress = policeStationAddress;
+	@ManyToOne
+	private SPOfficer spOfficer;
+
+	public PoliceStation(SPOfficer spOfficer, String address) {
+		this.spOfficer = spOfficer;
+		this.policeStationAddress.setAddressLine1(address);
 	}
 }

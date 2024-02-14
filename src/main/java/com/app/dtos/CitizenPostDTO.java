@@ -51,6 +51,4 @@ public class CitizenPostDTO {
 	private String password;
 	private Address currentAddress;
 	private Address permanentAddress;
-	
-	
 }

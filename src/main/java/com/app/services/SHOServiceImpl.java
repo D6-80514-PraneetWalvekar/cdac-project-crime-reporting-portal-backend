@@ -42,7 +42,7 @@ public class SHOServiceImpl implements SHOService{
 
         StationHouseOfficer sho = shoDao.findById(sho_id).orElseThrow(()->new ResourseNotFound("Could not get details"));
         ShoDTO dto = mapper.map(sho, ShoDTO.class);
-        dto.setPoliceStation(sho.getStation().getPoliceStationAddress().getAddressLine1());
+        dto.setPoliceStationAddressline1(sho.getStation().getPoliceStationAddress().getAddressLine1());
 
         return dto;
     }
@@ -81,5 +81,13 @@ public class SHOServiceImpl implements SHOService{
         fir.setStatusEnum(StatusEnum.ONGOING);
         firDao.save(fir);
         return "Complaint accepted and assigned to "+io_id;
+    }
+
+    @Override
+    public IoDTO addIO(Long sho_id, IOPostDTO ioAdd) {
+        InvestigatingOfficer io = mapper.map(ioAdd, InvestigatingOfficer.class);
+        io.setStation(shoDao.getReferenceById(sho_id).getStation());
+
+        return  mapper.map(ioDao.save(io), IoDTO.class);
     }
 }

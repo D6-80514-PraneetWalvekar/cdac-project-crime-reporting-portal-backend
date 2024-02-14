@@ -1,13 +1,11 @@
 package com.app;
 
-import com.app.daos.CitizenDAO;
-import com.app.daos.IODao;
-import com.app.daos.PoliceStationDao;
-import com.app.daos.SHODao;
+import com.app.daos.*;
 import com.app.entities.Address;
 import com.app.entities.PoliceStation;
 import com.app.entities.end_users.Citizen;
 import com.app.entities.end_users.InvestigatingOfficer;
+import com.app.entities.end_users.SPOfficer;
 import com.app.entities.end_users.StationHouseOfficer;
 import com.app.entities.enums.DutyStatus;
 import com.app.entities.enums.GenderEnum;
@@ -36,42 +34,58 @@ class ApplicationTests {
 	CitizenDAO citizenDAO;
 	@Autowired
 	IODao ioDao;
+	@Autowired
+	SPDao spDao;
+
+	@Test
+	void insertSP()
+	{
+		SPOfficer sp = new SPOfficer("SP", "Sir", "sp@police.com", "1029371986");
+		spDao.save(sp);
+	}
 
 
 	@Test
 	void insertSHO()
 	{
+		SPOfficer spOfficer = spDao.getReferenceById(1L);
 
-		Address address = new Address("a", "b", "c", "d", "e","123456");
-//		StationHouseOfficer sho = new StationHouseOfficer("first officer", "lastname of 1st", "1234567890", "Town Inspector",
-//				GenderEnum.MALE, "sho1@police.com", LocalDate.parse("1990-09-11"), address,LocalDate.parse("2022-10-08"), DutyStatus.ACTIVE);
-		Address psAddress = new Address("phase 1", "hinjewadi", "Pune", "Maharashtra", "India", "411106");
-		PoliceStation policeStation = new PoliceStation(psAddress);
-		PoliceStation policeStation2 = stationDao.save(policeStation);
-		shoDao.save(new StationHouseOfficer("first officer", "lastname of 1st", "1234567890", "Town Inspector",
-				GenderEnum.MALE, "sho1@police.com", LocalDate.parse("1990-09-11"), address,LocalDate.parse("2022-10-08"), DutyStatus.ACTIVE, policeStation2));
+		PoliceStation ps1 = new PoliceStation(spOfficer, "Phase 1, Hinjewadi");
+		StationHouseOfficer sho1 = new StationHouseOfficer("first officer", "lastname of 1st", "sho1@police.com", "1234567890", ps1, spOfficer);
 
-		Address address2 = new Address("a1", "b2", "c3", "d4", "e","123456");
-//		StationHouseOfficer sho = new StationHouseOfficer("first officer", "lastname of 1st", "1234567890", "Town Inspector",
-//				GenderEnum.MALE, "sho1@police.com", LocalDate.parse("1990-09-11"), address,LocalDate.parse("2022-10-08"), DutyStatus.ACTIVE);
-		Address psAddress2 = new Address("phase 3", "wakad", "Pune", "Maharashtra", "India", "411106");
-		PoliceStation policeStation21 = new PoliceStation(psAddress2);
-		PoliceStation policeStation22 = stationDao.save(policeStation21);
-		shoDao.save(new StationHouseOfficer("second officer", "lastname of 2st", "1234143343", "Town Inspector",
-				GenderEnum.MALE, "sho2@police.com", LocalDate.parse("1990-09-11"), address,LocalDate.parse("2022-10-08"), DutyStatus.ACTIVE, policeStation22));
+		PoliceStation ps2 = new PoliceStation(spOfficer, "Phase 2, Hinjewadi");
+		StationHouseOfficer sho2 = new StationHouseOfficer("second officer", "lastname of 2nd", "sho2@police.com", "132412", ps2, spOfficer);
+
+		PoliceStation ps3 = new PoliceStation(spOfficer, "Phase 3, Hinjewadi");
+		StationHouseOfficer sho3 = new StationHouseOfficer("third officer", "lastname of 3rd", "sho3@police.com", "23413141", ps3, spOfficer);
+
+		stationDao.save(ps1);
+		stationDao.save(ps2);
+		stationDao.save(ps3);
+
+		shoDao.save(sho1);
+		shoDao.save(sho2);
+		shoDao.save(sho3);
 	}
 
 	@Test
 	void insertIO()
 	{
+		InvestigatingOfficer  io = new InvestigatingOfficer("io1", "sir", "io1@police.com", "129038721", stationDao.findById(1L).get());
+		ioDao.save(io);
+		  io = new InvestigatingOfficer("io2", "ma'am", "io2@police.com", "234234", stationDao.findById(1L).get());
+		ioDao.save(io);
+		  io = new InvestigatingOfficer("io3", "sir", "io3@police.com", "1234124", stationDao.findById(1L).get());
+		ioDao.save(io);
 
-		InvestigatingOfficer io = new InvestigatingOfficer("io2", "IO22", "1222341", "Sub-Inspector", GenderEnum.MALE, "Io2@police.com", LocalDate.parse("1991-08-11"), LocalDate.parse("2023-08-11"), RoleEnum.INVESTIGATINGOFFICER, DutyStatus.ACTIVE, stationDao.findById(1L).get());
+		  io = new InvestigatingOfficer("io4", "sir", "io4@police.com", "097987345", stationDao.findById(2L).get());
 		ioDao.save(io);
-		 io = new InvestigatingOfficer("io3", "IO33", "42342", "Sub-Inspector", GenderEnum.MALE, "Io3@police.com", LocalDate.parse("1995-09-11"), LocalDate.parse("2024-02-01"), RoleEnum.INVESTIGATINGOFFICER, DutyStatus.ACTIVE, stationDao.findById(1L).get());
+		  io = new InvestigatingOfficer("io5", "ma'am", "io5@police.com", "0923894681", stationDao.findById(2L).get());
 		ioDao.save(io);
-		 io = new InvestigatingOfficer("io4", "IO44", "42351240", "Sub-Inspector", GenderEnum.FEMALE, "Io4@police.com", LocalDate.parse("1996-04-11"), LocalDate.parse("2023-11-11"), RoleEnum.INVESTIGATINGOFFICER, DutyStatus.ACTIVE, stationDao.findById(2L).get());
+
+		io = new InvestigatingOfficer("io6", "sir", "io6@police.com", "3124", stationDao.findById(3L).get());
 		ioDao.save(io);
-		 io = new InvestigatingOfficer("io5", "IO55", "2309842", "Sub-Inspector", GenderEnum.MALE, "Io5@police.com", LocalDate.parse("1997-05-11"), LocalDate.parse("2023-12-31"), RoleEnum.INVESTIGATINGOFFICER, DutyStatus.ACTIVE, stationDao.findById(2L).get());
+		io = new InvestigatingOfficer("io7", "ma'am", "io7@police.com", "98234", stationDao.findById(3L).get());
 		ioDao.save(io);
 
 

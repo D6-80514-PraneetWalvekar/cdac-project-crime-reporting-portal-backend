@@ -18,28 +18,11 @@ import java.time.LocalDate;
 @Table(name="Station_House_Officers")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class StationHouseOfficer extends BaseEntity {
+public class StationHouseOfficer extends BaseEntityUsers {
 
-    @Column(length = 30,nullable = false)
-    private String officerFirstName;
-
-    @Column(length = 30,nullable = false)
-    private String officerLastName;
-
-    @Column(length = 30,nullable = false, unique = true)
-    private String mobileNo;
-
-    @Column(length = 20,nullable = false)
+    @Column(length = 20)
     private String designation;
 
-    @Enumerated(EnumType.STRING)
-    private GenderEnum gender;
-
-    @Column(length = 30,nullable = false , unique = true)
-    private String email;
-
-    @Column(name="date_of_birth")
-    private LocalDate DOB;
 
     @Embedded
     @AttributeOverrides({
@@ -52,15 +35,23 @@ public class StationHouseOfficer extends BaseEntity {
     })
     private Address officerAddress;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate joiningDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private DutyStatus dutyStatus;
 
     @OneToOne
     @JoinColumn(name = "station_id",nullable = false)
     private PoliceStation station;
 
+    @ManyToOne
+    private SPOfficer spOfficer;
+
+    public StationHouseOfficer(String fName, String lName, String email, String mobileNo, PoliceStation station, SPOfficer spOfficer) {
+        super(fName, lName, email, mobileNo);
+        this.station = station;
+        this.spOfficer = spOfficer;
+    }
 }

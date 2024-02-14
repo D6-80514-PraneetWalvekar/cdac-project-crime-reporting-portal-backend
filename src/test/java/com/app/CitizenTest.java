@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.app.entities.enums.TitleEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -30,9 +31,9 @@ public class CitizenTest {
 	@Test
 	void testCitizenD() {
 		List<Citizen> list = List.of(
-				new Citizen("devil","123412341234",add1,add2,"Doctor","Mr","max","john",25,"MALE","max123@gmail.com","max123","1234567890","1998-12-02"),
-				new Citizen("praneet","123412345678",add2,add1,"host","Mr","puneet","devis",25,"FEMALE","puneet123@gmail.com","puneet123","1234567800","1998-10-02"),
-				new Citizen("davis","111112341234",add2,add2,"engineer","Mr","atom","derick",25,"MALE","devis123@gmail.com","devis123","1234567000","1998-09-02")
+				new Citizen("devil","123412341234",add1,add2,"Doctor", TitleEnum.Mr,"max","john",25,"MALE","max123@gmail.com","max123","1234567890","1998-12-02"),
+				new Citizen("praneet","123412345678",add2,add1,"host",TitleEnum.Miss,"puneet","devis",25,"FEMALE","puneet123@gmail.com","puneet123","1234567800","1998-10-02"),
+				new Citizen("davis","111112341234",add2,add2,"engineer",TitleEnum.Dr,"atom","derick",55,"MALE","devis123@gmail.com","devis123","1234567000","1998-09-02")
 				);
 		List<Citizen> list1 = citizenDao.saveAll(list);
 		assertEquals(3,list1.size());

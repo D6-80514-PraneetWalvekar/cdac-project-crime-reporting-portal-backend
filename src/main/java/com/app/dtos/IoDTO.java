@@ -1,13 +1,15 @@
 package com.app.dtos;
 
+import com.app.entities.PoliceStation;
+import com.app.entities.enums.DutyStatus;
+import com.app.entities.enums.RoleEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 public class IoDTO {
 
@@ -20,5 +22,4 @@ public class IoDTO {
 
     private Integer numberOfCases;
     private Integer noOfCasesSolved;
-
 }

@@ -1,19 +1,16 @@
 package com.app.dtos;
 
 import com.app.entities.Address;
+import com.app.entities.enums.DutyStatus;
 import com.app.entities.enums.GenderEnum;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotBlank;
 
 @Getter @Setter
-@NoArgsConstructor
-public class ShoDTO {
-
+public class SHOPostDTO {
     private String fName;
 
     private String lName;
@@ -31,9 +28,9 @@ public class ShoDTO {
 
     private LocalDate joiningDate;
 
-    private String dutyStatus;
+    private DutyStatus dutyStatus;
 
-    private String policeStationAddressline1;
+    private String policeStation;
 
     private Address officerAddress;
 }
