@@ -71,11 +71,11 @@ class ApplicationTests {
 	@Test
 	void insertIO()
 	{
-		InvestigatingOfficer  io = new InvestigatingOfficer("io1", "sir", "io1@police.com", "129038721", stationDao.findById(1L).get());
+		InvestigatingOfficer  io = new InvestigatingOfficer("io1", "sir", "io1@police.com", "129038721", stationDao.findById(2L).get());
 		ioDao.save(io);
-		  io = new InvestigatingOfficer("io2", "ma'am", "io2@police.com", "234234", stationDao.findById(1L).get());
+		  io = new InvestigatingOfficer("io2", "ma'am", "io2@police.com", "234234", stationDao.findById(3L).get());
 		ioDao.save(io);
-		  io = new InvestigatingOfficer("io3", "sir", "io3@police.com", "1234124", stationDao.findById(1L).get());
+		  io = new InvestigatingOfficer("io3", "sir", "io3@police.com", "1234124", stationDao.findById(4L).get());
 		ioDao.save(io);
 
 		  io = new InvestigatingOfficer("io4", "sir", "io4@police.com", "097987345", stationDao.findById(2L).get());

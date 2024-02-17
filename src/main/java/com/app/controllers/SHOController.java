@@ -36,7 +36,7 @@ public class SHOController {
     }
 
     @GetMapping("/{SHO_id}/police-station/complaints")
-    public ResponseEntity<List<complaintsDTO>> getAllComplaints(@PathVariable Long SHO_id)
+    public ResponseEntity<List<ComplaintsDTO>> getAllComplaints(@PathVariable Long SHO_id)
     {
         return ResponseEntity.ok().body(shoService.getComplaints(SHO_id));
     }

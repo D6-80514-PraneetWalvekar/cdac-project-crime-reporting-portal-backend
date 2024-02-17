@@ -9,8 +9,14 @@ import java.util.List;
 @Getter
 @Setter
 public class ApiResponseArray<T> {
-    private String status;
+    private ApiResponseStatus status;
     private List<T> data;
 
     private LocalDateTime responseTime;
+
+    public ApiResponseArray(ApiResponseStatus status, List<T> data, LocalDateTime responseTime) {
+        this.status = status;
+        this.data = data;
+        this.responseTime = responseTime;
+    }
 }

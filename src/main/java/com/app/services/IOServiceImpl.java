@@ -6,7 +6,7 @@ import com.app.entities.*;
 import com.app.dtos.*;
 import com.app.custom_exceptions.ResourseNotFound;
 import com.app.daos.IODao;
-import com.app.dtos.complaintsDTO;
+import com.app.dtos.ComplaintsDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +29,10 @@ public class IOServiceImpl implements IOService{
     FIRDao firDao;
 
     @Override
-    public List<complaintsDTO> getComplaints(Long io_id) {
+    public List<ComplaintsDTO> getComplaints(Long io_id) {
         return ioDao.findById(io_id).orElseThrow(()->new ResourseNotFound("Could not get")).getCases()
                 .stream().map((fir)->{
-                    complaintsDTO dto =mapper.map(fir.getComplaint(), complaintsDTO.class);
+                    ComplaintsDTO dto =mapper.map(fir.getComplaint(), ComplaintsDTO.class);
                     dto.setComplainant(fir.getComplaint().getCitizen().getFName());
                     return dto;
                 }).collect(Collectors.toList());
@@ -44,5 +44,6 @@ public class IOServiceImpl implements IOService{
         FirstInformationReport fir = firDao.findById(complaint_id).orElseThrow();
         fir.setRemark(complaintDTO.getRemark());
         fir.setStatusEnum(complaintDTO.getStatusEnum());
+
     }
 }

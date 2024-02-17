@@ -1,9 +1,13 @@
 package com.app.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.app.entities.enums.StatusEnum;
 
+import com.app.utilities.ApiResponseArray;
+import com.app.utilities.ApiResponseData;
+import com.app.utilities.ApiResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,35 +41,40 @@ public class CitizenController {
 	
 	@GetMapping("/{citizenid}")
 	public ResponseEntity<?> getUser(@PathVariable Long citizenid){
+		ApiResponseData<CitizenGetDTO> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,userService.getUserById(citizenid), LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(userService.getUserById(citizenid));
+				.body(apiResponseData);
 	}
 	@GetMapping
-	public ResponseEntity<List<CitizenGetDTO>> getAllUsers(){
+	public ResponseEntity<?> getAllUsers(){
+		ApiResponseArray<CitizenGetDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,userService.findAllUser(),LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(userService.findAllUser());
+				.body(apiResponseData);
 	}
 	@PostMapping
 	public ResponseEntity<?> createNewUser(@RequestBody CitizenPostDTO user){
+		ApiResponseData<String> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,userService.addNewUser(user),LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(userService.addNewUser(user));
+				.body(apiResponseData);
 	}
 	@GetMapping("/complaint/{citizenid}")
 	public ResponseEntity<?>getComplaintById(@PathVariable Long citizenid){
+		ApiResponseArray<ComplaintDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,complaintService.getCompById(citizenid),LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(complaintService.getCompById(citizenid));
+				.body(apiResponseData);
 	}
 	@PostMapping("/complaint/{citizenid}")
 	public ResponseEntity<?> addNewComplaint(@PathVariable Long citizenid , @RequestBody ComplaintDTO newComp){
-		
+		ApiResponseData<ComplaintDTO> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,complaintService.addNewComplaint(citizenid,newComp),LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(complaintService.addNewComplaint(citizenid,newComp));
 		
 	}
 	@DeleteMapping("/complaint/{complaint_id}")
 	public ResponseEntity<?> deleteComplaint(@PathVariable Long complaint_id ){
+		ApiResponseData<String> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,complaintService.deleteComplaint(complaint_id),LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(complaintService.deleteComplaint(complaint_id));
+				.body(apiResponseData);
 	}
 	
 
