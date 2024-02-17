@@ -19,7 +19,7 @@ import java.util.List;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Rollback(value = false)
+@Rollback(false)
 public class ComplaintDaoTest {
 
     @Autowired

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.app.daos.CitizenDAO;
 import com.app.dtos.CitizenGetDTO;
 import com.app.dtos.CitizenPostDTO;
+import com.app.dtos.LoginDTO;
 import com.app.entities.end_users.Citizen;
 
 @Service
@@ -43,5 +44,11 @@ public class CitizenServiceImpl implements CitizenService {
 		citizenDao.save(newUser);
 		return "User Created";
 		}
+
+	
+	@Override
+	public CitizenGetDTO userLogin(LoginDTO logs) {
+		return mapper.map(citizenDao.findByEmailAndPassword(logs.getEmail(),logs.getPassword()),CitizenGetDTO.class);
+	}
 	
 }

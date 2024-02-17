@@ -7,5 +7,7 @@ import com.app.entities.end_users.Citizen;
 
 @Repository
 public interface CitizenDAO extends JpaRepository<Citizen, Long> {
+
+	Citizen findByEmailAndPassword(String email, String password);
 	
 }

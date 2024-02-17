@@ -22,7 +22,8 @@ import org.springframework.test.context.ContextConfiguration;
 import java.time.LocalDate;
 
 @DataJpaTest
-@Rollback(value = false) @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Rollback(false)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ApplicationTests {
 
 

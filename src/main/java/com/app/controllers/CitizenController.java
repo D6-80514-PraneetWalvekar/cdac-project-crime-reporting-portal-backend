@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dtos.ComplaintDTO;
+import com.app.dtos.LoginDTO;
 import com.app.dtos.CitizenGetDTO;
 import com.app.dtos.CitizenPostDTO;
 import com.app.services.CitizenService;
@@ -28,12 +30,20 @@ import ch.qos.logback.core.status.Status;
 @RestController
 @RequestMapping("/citizen")
 @Validated
+@CrossOrigin("http://localhost:3000")
 public class CitizenController {
 	
 	@Autowired
 	private CitizenService userService;
 	@Autowired
 	private ComplaintService complaintService;
+	
+	@PostMapping("/login")
+	public ResponseEntity<?> getlogin(@RequestBody LoginDTO logs){
+		
+		return ResponseEntity.status(HttpStatus.OK).body(userService.userLogin(logs));
+		
+	}
 	
 	@GetMapping("/{citizenid}")
 	public ResponseEntity<?> getUser(@PathVariable Long citizenid){
