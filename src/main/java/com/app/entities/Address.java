@@ -32,5 +32,4 @@ public class Address {
     @Column(length = 7)
     private String pincode;
 
-
 }

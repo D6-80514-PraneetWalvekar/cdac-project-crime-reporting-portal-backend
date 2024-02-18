@@ -54,11 +54,11 @@ public class SHOServiceImpl implements SHOService{
     }
 
     @Override
-    public List<complaintsDTO> getComplaints(Long sho_id) {
+    public List<ComplaintsDTO> getComplaints(Long sho_id) {
         List<Complaint> complaints = shoDao.findById(sho_id).orElseThrow(()->new ResourseNotFound("Could not get details"))
                                      .getStation().getComplaints();
         return complaints.stream().map((complaint)->{
-            complaintsDTO dto =  mapper.map(complaint, complaintsDTO.class);
+            ComplaintsDTO dto =  mapper.map(complaint, ComplaintsDTO.class);
             dto.setComplainant(complaint.getCitizen().getFName());
             return dto;
         }).collect(Collectors.toList());
