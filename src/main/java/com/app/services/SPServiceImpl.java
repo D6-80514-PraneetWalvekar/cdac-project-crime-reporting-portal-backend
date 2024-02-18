@@ -12,6 +12,7 @@ import com.app.entities.enums.RoleEnum;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,9 @@ public class SPServiceImpl implements SPService{
     private PoliceStationDao psDao;
     @Autowired
     private SHODao shoDao;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Autowired
     private ModelMapper mapper;
@@ -52,15 +56,17 @@ public class SPServiceImpl implements SPService{
     @Override
     public ShoDTO addSHO(String email, SHOPostDTO shoAdd) {
         StationHouseOfficer sho = mapper.map(shoAdd, StationHouseOfficer.class);
-        PoliceStation ps = psDao.findPoliceStationByPoliceStationAddress_AddressLine1(shoAdd.getPoliceStation());
+        PoliceStation ps = psDao.findPoliceStationByAddress(shoAdd.getPoliceStation()).orElseThrow(()->new ResourseNotFound("PS not found!"));
         sho.setStation(ps);
         sho.setSpOfficer(spDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SP id invalid")));
         sho.getBaseEntityUser().setRole(RoleEnum.ROLE_SHO);
+        sho.getBaseEntityUser().setPassword(encoder.encode(sho.getBaseEntityUser().getPassword()));
         return mapper.map(shoDao.save(sho), ShoDTO.class);
     }
 
     @Override
     public PsDTO addPS(String email, PSPostDTO psAdd) {
+
         PoliceStation ps = mapper.map(psAdd, PoliceStation.class);
         ps.setSpOfficer(spDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SP Id invalid")));
 

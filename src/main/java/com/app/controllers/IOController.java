@@ -21,13 +21,13 @@ public class IOController {
 
     @Autowired
     IOService ioService;
-    @GetMapping("/{IO_id}/complaints")
+    @GetMapping("/complaints")
     public ResponseEntity<?> getComplaints(@AuthenticationPrincipal String principal)
     {
         ApiResponseArray<ComplaintsDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,ioService.getComplaints(principal), LocalDateTime.now());
         return ResponseEntity.ok().body( apiResponseData);
     }
-    @PutMapping("/{IO_id}/complaints/{complaint_id}/update")
+    @PutMapping("/complaints/{complaint_id}/update")
     public ResponseEntity<?> updateComplaint(@AuthenticationPrincipal String principal, @PathVariable Long complaint_id, @RequestBody IOupdateComplaintDTO updateComplaint)
     {
         ApiResponseData<String> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,ioService.updateComplaint(principal, complaint_id, updateComplaint),LocalDateTime.now());

@@ -44,7 +44,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 		List<Complaint> comp = citizenDao.findByBaseEntityUserEmail(principal).orElseThrow().getComplaints();
 		return comp.stream().map(compl -> {
 			ComplaintDTO dto = mapper.map(compl, ComplaintDTO.class);
-			dto.setPoliceStationId(compl.getPoliceStation().getID());
+			dto.setPoliceStationAddress(compl.getPoliceStation().getAddress());
 			return dto;
 		}).collect(Collectors.toList());
 	}
@@ -55,7 +55,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 									.orElseThrow(() -> new NoSuchEntityExistsException("User Not Found !! "));
 		Complaint newComplaint = mapper.map(complaintDTO, Complaint.class);
 
-		PoliceStation ps = policeStationDao.findById(complaintDTO.getPoliceStationId()).
+		PoliceStation ps = policeStationDao.findPoliceStationByAddress(complaintDTO.getPoliceStationAddress()).
 				orElseThrow(() -> new NoSuchEntityExistsException("PS Not Found !! "));
 
 		newComplaint.setPoliceStation(ps);

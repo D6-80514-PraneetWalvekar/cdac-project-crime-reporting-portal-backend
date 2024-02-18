@@ -52,9 +52,9 @@ public class SHOController {
     }
 
     @PutMapping("/police-station/complaint/{complaint_id}")
-    public ResponseEntity<?> acceptComplaint(@AuthenticationPrincipal String principal, @PathVariable Long complaint_id, @RequestBody Long io_id)
+    public ResponseEntity<?> acceptComplaint(@AuthenticationPrincipal String principal, @PathVariable Long complaint_id, @RequestBody IOEmailDTO ioEmail)
     {
-        ApiResponseData<String> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,shoService.acceptComplaint(principal, complaint_id, io_id),LocalDateTime.now());
+        ApiResponseData<String> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,shoService.acceptComplaint(principal, complaint_id, ioEmail),LocalDateTime.now());
         return ResponseEntity.ok().body(apiResponseData);
     }
 

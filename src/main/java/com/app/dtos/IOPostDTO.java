@@ -26,8 +26,6 @@ public class IOPostDTO {
         private String designation;
 
         private LocalDate joiningDate;
-        private Address officerAddress;
 
-        private RoleEnum role=RoleEnum.ROLE_IO;
         private DutyStatus dutyStatus;
 }

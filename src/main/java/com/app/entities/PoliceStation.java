@@ -19,16 +19,19 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor
 public class PoliceStation extends BaseEntity{
 
-	@Embedded
-	@AttributeOverrides({
-			@AttributeOverride(name = "addressLine1", column = @Column(name = "police_station_address_line_one")),
-			@AttributeOverride(name = "addressLine2", column = @Column(name = "police_station_address_line_two")),
-			@AttributeOverride(name = "district", column = @Column(name = "police_station_address_district")),
-			@AttributeOverride(name = "state", column = @Column(name = "police_station_address_state")),
-			@AttributeOverride(name = "country", column = @Column(name = "police_station_address_country")),
-			@AttributeOverride(name = "pincode", column = @Column(name = "police_station_address_pincode")),
-	})
-	private Address policeStationAddress = new Address();
+	@Column(length = 50)
+	private String address;
+
+	@Column(length = 50)
+	private String district;
+
+	@Column(length = 50)
+	private String state;
+
+	@Column(length = 50)
+	private String pincode;
+
+
 	@OneToOne(mappedBy = "station")
 	private StationHouseOfficer sho;
 
@@ -40,9 +43,4 @@ public class PoliceStation extends BaseEntity{
 
 	@ManyToOne
 	private SPOfficer spOfficer;
-
-	public PoliceStation(SPOfficer spOfficer, String address) {
-		this.spOfficer = spOfficer;
-		this.policeStationAddress.setAddressLine1(address);
-	}
 }
