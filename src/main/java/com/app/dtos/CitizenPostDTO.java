@@ -37,10 +37,10 @@ public class CitizenPostDTO {
 	@NotBlank(message = "required!")
 	private String mobileNo;
 	@NotBlank(message = "required!")
-	private String addharNo;
+	private String aaddharNo;
 	private String occupation;
 	@NotBlank(message = "required!")
-	private int age;
+	private Integer age;
 	@NotBlank(message = "Email required!")
 	@Email(message = "Invalid Email Format")
 	private String email;

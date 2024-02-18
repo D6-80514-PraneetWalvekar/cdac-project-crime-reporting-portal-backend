@@ -5,6 +5,8 @@ import com.app.entities.BaseEntity;
 import com.app.entities.PoliceStation;
 import com.app.entities.enums.DutyStatus;
 import com.app.entities.enums.GenderEnum;
+import com.app.entities.enums.RoleEnum;
+import com.app.entities.enums.TitleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,22 +20,51 @@ import java.time.LocalDate;
 @Table(name="Station_House_Officers")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class StationHouseOfficer extends BaseEntityUsers {
+@AttributeOverride(name = "ID", column = @Column(name = "sho_id"))
+public class StationHouseOfficer extends BaseEntity {
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "sho_id")
+    BaseEntityUsers baseEntityUser = new BaseEntityUsers();
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 5)
+    private TitleEnum title;
+
+    @Column(length = 25,nullable = false)
+    private String fName;
+
+    @Column(length = 25,nullable = false)
+    private String lName;
+
+    @Column
+    private Integer age;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate DOB;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10)
+    private GenderEnum gender;
+
+    @Column(length = 12 ,nullable = false , unique = true)
+    private String mobileNo;
 
     @Column(length = 20)
     private String designation;
 
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "addressLine1", column = @Column(name = "officer_address_line_one")),
-            @AttributeOverride(name = "addressLine2", column = @Column(name = "officer_address_line_two")),
-            @AttributeOverride(name = "district", column = @Column(name = "officer_address_district")),
-            @AttributeOverride(name = "state", column = @Column(name = "officer_address_state")),
-            @AttributeOverride(name = "country", column = @Column(name = "officer_address_country")),
-            @AttributeOverride(name = "pincode", column = @Column(name = "officer_address_pincode")),
-    })
-    private Address officerAddress;
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name = "addressLine1", column = @Column(name = "officer_address_line_one")),
+//            @AttributeOverride(name = "addressLine2", column = @Column(name = "officer_address_line_two")),
+//            @AttributeOverride(name = "district", column = @Column(name = "officer_address_district")),
+//            @AttributeOverride(name = "state", column = @Column(name = "officer_address_state")),
+//            @AttributeOverride(name = "country", column = @Column(name = "officer_address_country")),
+//            @AttributeOverride(name = "pincode", column = @Column(name = "officer_address_pincode")),
+//    })
+//    private Address officerAddress;
 
     @Column
     private LocalDate joiningDate;
@@ -48,10 +79,4 @@ public class StationHouseOfficer extends BaseEntityUsers {
 
     @ManyToOne
     private SPOfficer spOfficer;
-
-    public StationHouseOfficer(String fName, String lName, String email, String mobileNo, PoliceStation station, SPOfficer spOfficer) {
-        super(fName, lName, email, mobileNo);
-        this.station = station;
-        this.spOfficer = spOfficer;
-    }
 }

@@ -29,8 +29,8 @@ public class IOServiceImpl implements IOService{
     FIRDao firDao;
 
     @Override
-    public List<ComplaintsDTO> getComplaints(Long io_id) {
-        return ioDao.findById(io_id).orElseThrow(()->new ResourseNotFound("Could not get")).getCases()
+    public List<ComplaintsDTO> getComplaints(String email) {
+        return ioDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("Could not get")).getCases()
                 .stream().map((fir)->{
                     ComplaintsDTO dto =mapper.map(fir.getComplaint(), ComplaintsDTO.class);
                     dto.setComplainant(fir.getComplaint().getCitizen().getFName());
@@ -40,8 +40,9 @@ public class IOServiceImpl implements IOService{
 
 
     @Override
-    public String updateComplaint(Long io_id, Long complaint_id, IOupdateComplaintDTO complaintDTO) {
-        FirstInformationReport fir = firDao.findById(complaint_id).orElseThrow();
+    public String updateComplaint(String email, Long complaint_id, IOupdateComplaintDTO complaintDTO) {
+        ioDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("IO not valid"));
+        FirstInformationReport fir = firDao.findById(complaint_id).orElseThrow(()->new ResourseNotFound("Invalid FIR id"));
         fir.setRemark(complaintDTO.getRemark());
         fir.setStatusEnum(complaintDTO.getStatusEnum());
         return "Complaint updated successfully";

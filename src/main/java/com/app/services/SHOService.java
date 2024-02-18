@@ -5,14 +5,14 @@ import com.app.dtos.*;
 import java.util.List;
 
 public interface SHOService {
-    public ShoDTO getSHODetails(Long sho_id);
-    public PsDTO getPSDetails(Long sho_id);
-    public List<ComplaintsDTO> getComplaints(Long sho_id);
+    public ShoDTO getSHODetails(String email);
+    public PsDTO getPSDetails(String email);
+    public List<ComplaintsDTO> getComplaints(String email);
 
-    public List<IoDTO> getIOs(Long sho_id);
+    public List<IoDTO> getIOs(String email);
 
-    public String acceptComplaint(Long complaint_id, Long io_id);
+    public String acceptComplaint(String email,Long complaint_id, IOEmailDTO ioEmail);
 
-    IoDTO addIO(Long sho_id, IOPostDTO ioAdd);
+    IoDTO addIO(String email, IOPostDTO ioAdd);
 }
 

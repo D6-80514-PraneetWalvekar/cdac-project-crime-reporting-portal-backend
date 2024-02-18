@@ -25,39 +25,50 @@ import lombok.Setter;
 
 @Entity
 @Table(name="Investigating_Officers")
-@Getter
-@Setter
-@NoArgsConstructor 
-@AllArgsConstructor
-public class InvestigatingOfficer extends BaseEntityUsers {
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+@AttributeOverride(name = "ID", column = @Column(name = "io_id"))
+public class InvestigatingOfficer extends BaseEntity {
 
+	@OneToOne
+	@MapsId
+	@JoinColumn(name = "io_id")
+	BaseEntityUsers baseEntityUser;
+
+	@Enumerated(EnumType.STRING)
+	@Column(length = 5)
+	private TitleEnum title;
+
+	@Column(length = 25,nullable = false)
+	private String fName;
+
+	@Column(length = 25,nullable = false)
+	private String lName;
+
+	@Column
+	private Integer age;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate DOB;
+
+	@Enumerated(EnumType.STRING)
+	@Column(length = 10)
+	private GenderEnum gender;
+
+	@Column(length = 12 ,nullable = false , unique = true)
+	private String mobileNo;
 
 	@Column(length = 20)
 	private String designation;
+
 	@Column
 	private LocalDate joiningDate;
 
-	@Column(columnDefinition="int default '0'")
-	private Integer numberOfCases;
-
-	@Column(columnDefinition="int default '0'")
-	private Integer noOfCasesSolved;
-
-	@Enumerated(EnumType.STRING)
-	@Column
-	private RoleEnum role;
-
-	@Embedded
-	@AttributeOverrides({
-			@AttributeOverride(name = "addressLine1", column = @Column(name = "officer_address_line_one")),
-			@AttributeOverride(name = "addressLine2", column = @Column(name = "officer_address_line_two")),
-			@AttributeOverride(name = "district", column = @Column(name = "officer_address_district")),
-			@AttributeOverride(name = "state", column = @Column(name = "officer_address_state")),
-			@AttributeOverride(name = "country", column = @Column(name = "officer_address_country")),
-			@AttributeOverride(name = "pincode", column = @Column(name = "officer_address_pincode")),
-	})
-
-	private Address officerAddress;
+//	@Column(columnDefinition="int default '0'")
+//	private Integer numberOfCases;
+//
+//	@Column(columnDefinition="int default '0'")
+//	private Integer noOfCasesSolved;
 
 	@Enumerated(EnumType.STRING)
 	@Column
@@ -70,8 +81,4 @@ public class InvestigatingOfficer extends BaseEntityUsers {
 	@OneToMany(mappedBy = "investigatingOfficer")
 	private List<FirstInformationReport> cases = new ArrayList<>();
 
-	public InvestigatingOfficer(String fName, String lName, String email, String mobileNo, PoliceStation station) {
-		super(fName, lName, email, mobileNo);
-		this.station = station;
-	}
 }

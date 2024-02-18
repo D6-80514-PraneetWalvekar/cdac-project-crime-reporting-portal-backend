@@ -40,33 +40,40 @@ public class ComplaintServiceImpl implements ComplaintService {
 
 	
 	@Override
-	public List<ComplaintDTO> getCompById(Long citizen_id) {
-		List<Complaint> comp = citizenDao.findById(citizen_id).orElseThrow().getComplaints();
+	public List<ComplaintDTO> getCompById(String principal) {
+		List<Complaint> comp = citizenDao.findByBaseEntityUserEmail(principal).orElseThrow().getComplaints();
 		return comp.stream().map(compl -> {
 			ComplaintDTO dto = mapper.map(compl, ComplaintDTO.class);
-			dto.setPoliceStationId(compl.getPoliceStation().getID());
+			dto.setPoliceStationAddress(compl.getPoliceStation().getAddress());
 			return dto;
 		}).collect(Collectors.toList());
 	}
 
 	@Override
-	public ComplaintDTO addNewComplaint(Long citizenid, ComplaintDTO newComp) {
-		Citizen currentUser = citizenDao.findById(citizenid)
+	public ComplaintDTO addNewComplaint(String principal, ComplaintDTO complaintDTO) {
+		Citizen currentUser = citizenDao.findByBaseEntityUserEmail(principal)
 									.orElseThrow(() -> new NoSuchEntityExistsException("User Not Found !! "));
-		Complaint newComplaint = mapper.map(newComp, Complaint.class);
-		newComplaint.setPoliceStation(policeStationDao.getReferenceById(newComp.getPoliceStationId()));
+		Complaint newComplaint = mapper.map(complaintDTO, Complaint.class);
+
+		PoliceStation ps = policeStationDao.findPoliceStationByAddress(complaintDTO.getPoliceStationAddress()).
+				orElseThrow(() -> new NoSuchEntityExistsException("PS Not Found !! "));
+
+		newComplaint.setPoliceStation(ps);
 
 		newComplaint.setCitizen(currentUser);
 		currentUser.getComplaints().add(newComplaint);
 
 		compDao.save(newComplaint);
 
-		return newComp;
+		return complaintDTO;
 
 	}
 
 	@Override
-	public String deleteComplaint(Long complaint_id) {
+	public String deleteComplaint(String principal, Long complaint_id) {
+		citizenDao.findByBaseEntityUserEmail(principal)
+				.orElseThrow(() -> new NoSuchEntityExistsException("User Not Found !! "));
+
 		Complaint currentComp = compDao.findById(complaint_id)
 									.orElseThrow(() -> new NoSuchEntityExistsException("Complaint does not exist !!"));
 		Citizen currenCitizen = currentComp.getCitizen();

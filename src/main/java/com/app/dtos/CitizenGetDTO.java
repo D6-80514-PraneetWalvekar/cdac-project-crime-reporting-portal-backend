@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.app.entities.Address;
 import com.app.entities.enums.GenderEnum;
+import com.app.entities.enums.RoleEnum;
 import com.app.entities.enums.TitleEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -24,32 +25,24 @@ import lombok.ToString;
 @Setter
 @ToString
 public class CitizenGetDTO {
-	
-	private TitleEnum title;
-	@NotBlank(message = " required!")
-	private String fName;
-	@NotBlank(message = " required!")
-	private String lName;
-	
-	private GenderEnum gender;
-	@NotBlank(message = " required!")
-	private LocalDate DOB;
-	@NotBlank(message = "required!")
-	private String mobileNo;
-	@NotBlank(message = "required!")
-	private String addharNo;
-	private String occupation;
-	@NotBlank(message = "required!")
-	private int age;
-	@NotBlank(message = "Email required!")
-	@Email(message = "Invalid Email Format")
-	private String email;
-	@NotBlank(message = "required!")
-	private String fatherName;
+
+	private String baseEntityUserFName;
+	private String baseEntityUserLName;
+	@Email(message = "Invalid Email!!!")
+	private String baseEntityUserEmail;
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@NotBlank(message = "Required!")
-	private String password;
+	private String baseEntityUserPassword;
+	private RoleEnum baseEntityUserRole;
+
+	private String baseEntityUserMobileNo;
+	private GenderEnum baseEntityUserGender;
+	private LocalDate baseEntityUserDOB;
+	private Integer baseEntityUserAge;
+
+	private String fatherName;
+	private String aaddharNo;
+	private String occupation;
 	
-	private Address currentAddress;
-	private Address permanentAddress;
+	private TitleEnum baseEntityUserTitle;
+
 }

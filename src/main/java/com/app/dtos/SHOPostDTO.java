@@ -3,13 +3,16 @@ package com.app.dtos;
 import com.app.entities.Address;
 import com.app.entities.enums.DutyStatus;
 import com.app.entities.enums.GenderEnum;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
 
 @Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class SHOPostDTO {
     private String fName;
 
@@ -21,7 +24,8 @@ public class SHOPostDTO {
 
     private GenderEnum gender;
 
-    private String email;
+    private String baseEntityUserEmail;
+    private String baseEntityUserPassword;
 
     private String mobileNo;
     private String designation;
@@ -32,5 +36,4 @@ public class SHOPostDTO {
 
     private String policeStation;
 
-    private Address officerAddress;
 }

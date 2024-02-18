@@ -24,7 +24,7 @@ public class ShoDTO {
 
     private GenderEnum gender;
 
-    private String email;
+    private String baseEntityUserEmail;
 
     private String mobileNo;
     private String designation;
@@ -33,7 +33,5 @@ public class ShoDTO {
 
     private String dutyStatus;
 
-    private String policeStationAddressline1;
-
-    private Address officerAddress;
+    private String policeStationAddress;
 }

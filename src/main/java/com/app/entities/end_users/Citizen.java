@@ -10,6 +10,7 @@ import com.app.entities.Address;
 import com.app.entities.BaseEntity;
 import com.app.entities.Complaint;
 import com.app.entities.enums.GenderEnum;
+import com.app.entities.enums.RoleEnum;
 import com.app.entities.enums.TitleEnum;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,13 +24,42 @@ import lombok.ToString;
 @Table(name = "citizens")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class Citizen extends BaseEntityUsers {
+@AttributeOverride(name = "ID", column = @Column(name = "citizen_id"))
+public class Citizen extends BaseEntity  {
+
+	@OneToOne
+	@MapsId
+			@JoinColumn(name = "citizen_id")
+	BaseEntityUsers baseEntityUser;
+
+	@Enumerated(EnumType.STRING)
+	@Column(length = 5)
+	private TitleEnum title;
+
+	@Column(length = 25,nullable = false)
+	private String fName;
+
+	@Column(length = 25,nullable = false)
+	private String lName;
+
+	@Column
+	private Integer age;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate DOB;
+
+	@Enumerated(EnumType.STRING)
+	@Column(length = 10)
+	private GenderEnum gender;
+
+	@Column(length = 12 ,nullable = false , unique = true)
+	private String mobileNo;
 
 	@Column(length = 30,nullable = false)
 	private String fatherName;
 
 	@Column(length = 14 ,nullable = false , unique = true)
-	private String addharNo;
+	private String aaddharNo;
 
 	@Embedded
 	@AttributeOverrides({
@@ -55,23 +85,12 @@ public class Citizen extends BaseEntityUsers {
 	@Column(length = 25)
 	private String occupation;
 
-	@OneToMany(mappedBy = "citizen", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "citizen", cascade = CascadeType.MERGE, orphanRemoval = true)
 	List<Complaint> complaints = new ArrayList<Complaint>();
 
 	public void addUserInComplaint(Complaint newComplaint) {
 		this.getComplaints().add(newComplaint);
 	}
 
-	public Citizen(String fatherName, String addharNo, Address currentAddress, Address permanentAddress,
-			String occupation, TitleEnum title, String fName, String lName, int age,String gender,
-			String email, String password, String mobileNo,String dob) {
-		super(title, fName, lName, age, gender, email, password, mobileNo,dob);
-		this.fatherName = fatherName;
-		this.addharNo = addharNo;
-		this.currentAddress = currentAddress;
-		this.permanentAddress = permanentAddress;
-		this.occupation = occupation;
-
-	}
 
 }
