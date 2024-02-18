@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/SP/{sp_id}")
+@RequestMapping("/SP")
 @PreAuthorize("hasRole('SP')")
 public class SPController {
 
@@ -22,42 +23,42 @@ public class SPController {
     private SPService spService;
 
     @GetMapping("/")
-    public ResponseEntity<?> getSPDetails(@PathVariable Long sp_id)
+    public ResponseEntity<?> getSPDetails(@AuthenticationPrincipal String principal)
     {
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/police-staions")
-    public ResponseEntity<?> getAllPoliceStations(@PathVariable Long sp_id)
+    public ResponseEntity<?> getAllPoliceStations(@AuthenticationPrincipal String principal)
     {
-        ApiResponseArray<PsDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,spService.getAllPoliceStations(sp_id), LocalDateTime.now());
+        ApiResponseArray<PsDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,spService.getAllPoliceStations(principal), LocalDateTime.now());
         return ResponseEntity.ok().body(apiResponseData);
     }
     @GetMapping("/sho")
-    public ResponseEntity<?> getAllSHOs(@PathVariable Long sp_id)
+    public ResponseEntity<?> getAllSHOs(@AuthenticationPrincipal String principal)
     {
 
-        ApiResponseArray<ShoDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,spService.getAllSHOs(sp_id),LocalDateTime.now());
+        ApiResponseArray<ShoDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,spService.getAllSHOs(principal),LocalDateTime.now());
         return ResponseEntity.ok().body(apiResponseData);
     }
 
     @PostMapping("/addSHO")
-    public ResponseEntity<?> addSHO(@PathVariable Long sp_id, @RequestBody SHOPostDTO shoAdd)
+    public ResponseEntity<?> addSHO(@AuthenticationPrincipal String principal, @RequestBody SHOPostDTO shoAdd)
     {
-        ApiResponseData<ShoDTO> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,spService.addSHO(sp_id,shoAdd),LocalDateTime.now());
+        ApiResponseData<ShoDTO> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,spService.addSHO(principal,shoAdd),LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponseData);
     }
     @PostMapping("/addPS")
-    public ResponseEntity<?> addPS(@PathVariable Long sp_id, @RequestBody PSPostDTO psAdd)
+    public ResponseEntity<?> addPS(@AuthenticationPrincipal String principal, @RequestBody PSPostDTO psAdd)
     {
-        ApiResponseData<PsDTO> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,spService.addPS(sp_id, psAdd),LocalDateTime.now());
+        ApiResponseData<PsDTO> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,spService.addPS(principal, psAdd),LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponseData);
     }
 
     @PutMapping("/transfer")
-    public ResponseEntity<?> transferSHO(@PathVariable Long sp_id, @RequestBody TransferDTO transferDTO)
+    public ResponseEntity<?> transferSHO(@AuthenticationPrincipal String principal, @RequestBody TransferDTO transferDTO)
     {
-        TransferDTO dto = spService.transferSHO(sp_id, transferDTO);
+        TransferDTO dto = spService.transferSHO(principal, transferDTO);
 
         if(dto==null)
             return ResponseEntity.badRequest().body(new ApiResponseData<String>(ApiResponseStatus.SUCCESS,"Invalid SHO and PS",LocalDateTime.now()));

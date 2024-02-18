@@ -38,9 +38,9 @@ public class SHOServiceImpl implements SHOService{
     @Autowired
     private IODao ioDao;
     @Override
-    public ShoDTO getSHODetails(Long sho_id) {
+    public ShoDTO getSHODetails(String email) {
 
-        StationHouseOfficer sho = shoDao.findById(sho_id).orElseThrow(()->new ResourseNotFound("Could not get details"));
+        StationHouseOfficer sho = shoDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SHO ID invalid"));
         ShoDTO dto = mapper.map(sho, ShoDTO.class);
         dto.setPoliceStationAddressline1(sho.getStation().getPoliceStationAddress().getAddressLine1());
 
@@ -48,14 +48,14 @@ public class SHOServiceImpl implements SHOService{
     }
 
     @Override
-    public PsDTO getPSDetails(Long sho_id) {
-        PoliceStation ps = shoDao.findById(sho_id).orElseThrow(()->new ResourseNotFound("Could not get details")).getStation();
+    public PsDTO getPSDetails(String email) {
+        PoliceStation ps = shoDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SHO ID invalid")).getStation();
         return mapper.map(ps, PsDTO.class);
     }
 
     @Override
-    public List<ComplaintsDTO> getComplaints(Long sho_id) {
-        List<Complaint> complaints = shoDao.findById(sho_id).orElseThrow(()->new ResourseNotFound("Could not get details"))
+    public List<ComplaintsDTO> getComplaints(String email) {
+        List<Complaint> complaints = shoDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SHO ID invalid"))
                                      .getStation().getComplaints();
         return complaints.stream().map((complaint)->{
             ComplaintsDTO dto =  mapper.map(complaint, ComplaintsDTO.class);
@@ -65,14 +65,15 @@ public class SHOServiceImpl implements SHOService{
     }
 
     @Override
-    public List<IoDTO> getIOs(Long sho_id) {
-        List<InvestigatingOfficer> investigatingOfficers = shoDao.findById(sho_id).orElseThrow(()->new ResourseNotFound("Could not get details"))
+    public List<IoDTO> getIOs(String email) {
+        List<InvestigatingOfficer> investigatingOfficers = shoDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SHO ID invalid"))
                 .getStation().getIoOfficers();
         return investigatingOfficers.stream().map((io)->mapper.map(io, IoDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public String acceptComplaint(Long complaint_id, Long io_id) {
+    public String acceptComplaint(String email,Long complaint_id, Long io_id) {
+        StationHouseOfficer sho = shoDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SHO ID invalid"));
         Complaint complaint = complaintDao.findById(complaint_id).orElseThrow(() -> new ResourseNotFound("Could not get details"));
         FirstInformationReport fir = new FirstInformationReport();
         complaint.setFIR(true);
@@ -84,10 +85,9 @@ public class SHOServiceImpl implements SHOService{
     }
 
     @Override
-    public IoDTO addIO(Long sho_id, IOPostDTO ioAdd) {
+    public IoDTO addIO(String email, IOPostDTO ioAdd) {
         InvestigatingOfficer io = mapper.map(ioAdd, InvestigatingOfficer.class);
-        io.setStation(shoDao.getReferenceById(sho_id).getStation());
-
+        io.setStation(shoDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SHO ID invalid")).getStation());
         return  mapper.map(ioDao.save(io), IoDTO.class);
     }
 }

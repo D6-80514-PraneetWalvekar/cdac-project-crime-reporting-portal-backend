@@ -8,6 +8,7 @@ import com.app.dtos.*;
 import com.app.entities.PoliceStation;
 import com.app.entities.end_users.StationHouseOfficer;
 
+import com.app.entities.enums.RoleEnum;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,42 +33,42 @@ public class SPServiceImpl implements SPService{
     private ModelMapper mapper;
 
     @Override
-    public ResponseEntity<?> getSPDetails(Long sp_id) {
+    public ResponseEntity<?> getSPDetails(String email) {
         return null;
     }
 
     @Override
-    public List<PsDTO> getAllPoliceStations(Long sp_id) {
-        return spDao.findById(sp_id).orElseThrow(()->new ResourseNotFound("could not get!!")).getPoliceStations()
+    public List<PsDTO> getAllPoliceStations(String email) {
+        return spDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("could not get!!")).getPoliceStations()
                 .stream().map((ps)->mapper.map(ps, PsDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public List<ShoDTO> getAllSHOs(Long sp_id) {
-        return spDao.findById(sp_id).orElseThrow(()->new ResourseNotFound("could not get!!")).getStationHouseOfficers()
+    public List<ShoDTO> getAllSHOs(String email) {
+        return spDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("could not get!!")).getStationHouseOfficers()
                 .stream().map((sho)->mapper.map(sho, ShoDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public ShoDTO addSHO(Long sp_id, SHOPostDTO shoAdd) {
+    public ShoDTO addSHO(String email, SHOPostDTO shoAdd) {
         StationHouseOfficer sho = mapper.map(shoAdd, StationHouseOfficer.class);
         PoliceStation ps = psDao.findPoliceStationByPoliceStationAddress_AddressLine1(shoAdd.getPoliceStation());
         sho.setStation(ps);
-        sho.setSpOfficer(spDao.getReferenceById(sp_id));
-
+        sho.setSpOfficer(spDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SP id invalid")));
+        sho.getBaseEntityUser().setRole(RoleEnum.ROLE_SHO);
         return mapper.map(shoDao.save(sho), ShoDTO.class);
     }
 
     @Override
-    public PsDTO addPS(Long sp_id, PSPostDTO psAdd) {
+    public PsDTO addPS(String email, PSPostDTO psAdd) {
         PoliceStation ps = mapper.map(psAdd, PoliceStation.class);
-        ps.setSpOfficer(spDao.getReferenceById(sp_id));
+        ps.setSpOfficer(spDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SP Id invalid")));
 
         return mapper.map(psDao.save(ps), PsDTO.class);
     }
 
     @Override
-    public TransferDTO transferSHO(Long sp_id, TransferDTO transferDTO) {
+    public TransferDTO transferSHO(String email, TransferDTO transferDTO) {
 
         PoliceStation ps1 = psDao.findById(transferDTO.getPsOneID()).orElseThrow(()->new ResourseNotFound("could not get!"));
         PoliceStation ps2 = psDao.findById(transferDTO.getPsTwoID()).orElseThrow(()->new ResourseNotFound("could not get!"));

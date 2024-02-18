@@ -9,10 +9,10 @@ import java.util.List;
 
 
 public interface SPService {
-    ResponseEntity<?> getSPDetails(Long sp_id);
-    List<PsDTO> getAllPoliceStations(Long sp_id);
-    List<ShoDTO> getAllSHOs(Long sp_id);
-    ShoDTO addSHO(Long sp_id, SHOPostDTO shoAdd);
-    PsDTO addPS(Long sp_id, PSPostDTO psAdd);
-    TransferDTO transferSHO(Long sp_id, TransferDTO transferDTO);
+    ResponseEntity<?> getSPDetails(String email);
+    List<PsDTO> getAllPoliceStations(String email);
+    List<ShoDTO> getAllSHOs(String email);
+    ShoDTO addSHO(String email, SHOPostDTO shoAdd);
+    PsDTO addPS(String email, PSPostDTO psAdd);
+    TransferDTO transferSHO(String email, TransferDTO transferDTO);
 }

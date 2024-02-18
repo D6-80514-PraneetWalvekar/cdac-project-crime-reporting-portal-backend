@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface IOService {
 
-    public List<ComplaintsDTO> getComplaints(Long io_id);
-    public String updateComplaint(Long io_id, Long complaint_id, IOupdateComplaintDTO updateComplaint);
+    public List<ComplaintsDTO> getComplaints(String email);
+    public String updateComplaint(String email, Long complaint_id, IOupdateComplaintDTO updateComplaint);
 }
