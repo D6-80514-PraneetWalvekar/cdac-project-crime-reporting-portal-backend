@@ -40,10 +40,10 @@ public class IOServiceImpl implements IOService{
 
 
     @Override
-    public void updateComplaint(Long io_id, Long complaint_id, IOupdateComplaintDTO complaintDTO) {
+    public String updateComplaint(Long io_id, Long complaint_id, IOupdateComplaintDTO complaintDTO) {
         FirstInformationReport fir = firDao.findById(complaint_id).orElseThrow();
         fir.setRemark(complaintDTO.getRemark());
         fir.setStatusEnum(complaintDTO.getStatusEnum());
-
+        return "Complaint updated successfully";
     }
 }
