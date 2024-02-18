@@ -7,7 +7,7 @@ import java.util.List;
 public interface SHOService {
     public ShoDTO getSHODetails(Long sho_id);
     public PsDTO getPSDetails(Long sho_id);
-    public List<complaintsDTO> getComplaints(Long sho_id);
+    public List<ComplaintsDTO> getComplaints(Long sho_id);
 
     public List<IoDTO> getIOs(Long sho_id);
 
