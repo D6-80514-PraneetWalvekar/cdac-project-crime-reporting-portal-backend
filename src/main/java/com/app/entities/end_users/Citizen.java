@@ -10,6 +10,7 @@ import com.app.entities.Address;
 import com.app.entities.BaseEntity;
 import com.app.entities.Complaint;
 import com.app.entities.enums.GenderEnum;
+import com.app.entities.enums.RoleEnum;
 import com.app.entities.enums.TitleEnum;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -72,6 +73,10 @@ public class Citizen extends BaseEntityUsers {
 		this.permanentAddress = permanentAddress;
 		this.occupation = occupation;
 
+	}
+
+	{
+		super.setRole(RoleEnum.ROLE_CITIZEN);
 	}
 
 }

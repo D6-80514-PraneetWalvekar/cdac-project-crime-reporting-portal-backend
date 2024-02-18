@@ -1,6 +1,7 @@
 package com.app.entities.end_users;
 
 import com.app.entities.enums.GenderEnum;
+import com.app.entities.enums.RoleEnum;
 import com.app.entities.enums.TitleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,6 +49,10 @@ public class BaseEntityUsers {
 
         @Column(length = 12 ,nullable = false , unique = true)
         private String mobileNo;
+
+        @Column(length = 20, nullable = false)
+        @Enumerated(value = EnumType.STRING)
+        private RoleEnum role;
 
         
 		public BaseEntityUsers(TitleEnum title, String fName, String lName, Integer age,

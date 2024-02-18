@@ -2,6 +2,7 @@ package com.app.entities.end_users;
 
 
 import com.app.entities.PoliceStation;
+import com.app.entities.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,9 @@ public class SPOfficer extends BaseEntityUsers {
 
     public SPOfficer(String fName, String lName, String email, String mobileNo) {
         super(fName, lName, email, mobileNo);
+    }
+
+    {
+        super.setRole(RoleEnum.ROLE_SP);
     }
 }

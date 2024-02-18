@@ -5,6 +5,7 @@ import com.app.entities.BaseEntity;
 import com.app.entities.PoliceStation;
 import com.app.entities.enums.DutyStatus;
 import com.app.entities.enums.GenderEnum;
+import com.app.entities.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,6 +49,10 @@ public class StationHouseOfficer extends BaseEntityUsers {
 
     @ManyToOne
     private SPOfficer spOfficer;
+
+    {
+        super.setRole(RoleEnum.ROLE_SHO);
+    }
 
     public StationHouseOfficer(String fName, String lName, String email, String mobileNo, PoliceStation station, SPOfficer spOfficer) {
         super(fName, lName, email, mobileNo);

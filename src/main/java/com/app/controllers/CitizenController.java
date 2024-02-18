@@ -7,6 +7,7 @@ import com.app.entities.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ import ch.qos.logback.core.status.Status;
 
 @RestController
 @RequestMapping("/citizen")
-@Validated
+@PreAuthorize("hasRole('CITIZEN')")
 public class CitizenController {
 	
 	@Autowired
@@ -40,16 +41,17 @@ public class CitizenController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(userService.getUserById(citizenid));
 	}
-	@GetMapping
-	public ResponseEntity<List<CitizenGetDTO>> getAllUsers(){
-		return ResponseEntity.status(HttpStatus.OK)
-				.body(userService.findAllUser());
-	}
-	@PostMapping
-	public ResponseEntity<?> createNewUser(@RequestBody CitizenPostDTO user){
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(userService.addNewUser(user));
-	}
+//	@GetMapping
+//	public ResponseEntity<List<CitizenGetDTO>> getAllUsers(){
+//		return ResponseEntity.status(HttpStatus.OK)
+//				.body(userService.findAllUser());
+//	}
+
+//	@PostMapping
+//	public ResponseEntity<?> createNewUser(@RequestBody CitizenPostDTO user){
+//		return ResponseEntity.status(HttpStatus.CREATED)
+//				.body(userService.addNewUser(user));
+//	}
 	@GetMapping("/complaint/{citizenid}")
 	public ResponseEntity<?>getComplaintById(@PathVariable Long citizenid){
 		return ResponseEntity.status(HttpStatus.OK)
@@ -67,7 +69,5 @@ public class CitizenController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(complaintService.deleteComplaint(complaint_id));
 	}
-	
 
-	
 }

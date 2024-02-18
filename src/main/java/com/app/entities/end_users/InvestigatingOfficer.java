@@ -43,10 +43,6 @@ public class InvestigatingOfficer extends BaseEntityUsers {
 	@Column(columnDefinition="int default '0'")
 	private Integer noOfCasesSolved;
 
-	@Enumerated(EnumType.STRING)
-	@Column
-	private RoleEnum role;
-
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "addressLine1", column = @Column(name = "officer_address_line_one")),
@@ -73,5 +69,10 @@ public class InvestigatingOfficer extends BaseEntityUsers {
 	public InvestigatingOfficer(String fName, String lName, String email, String mobileNo, PoliceStation station) {
 		super(fName, lName, email, mobileNo);
 		this.station = station;
+	}
+
+
+	{
+		super.setRole(RoleEnum.ROLE_IO);
 	}
 }
