@@ -10,12 +10,17 @@ import java.time.LocalDate;
 @Getter @Setter
 @NoArgsConstructor
 public class FirDTO {
-    private String complainant;
-    private String incidentDescription;
-    private LocalDate incidentDate;
-    private String suspects;
-    private String incidentPlace;
-    private String witness;
-    private String additionalInfo;
+
+    private String complaintCitizenFName;
+    private String complaintIncidentDescription;
+    private LocalDate complaintIncidentDate;
+    private String complaintSuspects;
+    private String complaintIncidentPlace;
+    private String complaintWitness;
+    private String complaintAdditionalInfo;
+
+    private String remark;
     private String status;
+
+    private String investigatingOfficerFName;
 }

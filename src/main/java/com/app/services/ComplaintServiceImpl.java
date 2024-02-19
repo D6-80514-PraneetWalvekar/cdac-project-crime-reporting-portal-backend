@@ -3,6 +3,7 @@ package com.app.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.app.custom_exceptions.ResourseNotFound;
 import com.app.daos.FIRDao;
 import com.app.daos.PoliceStationDao;
 import com.app.dtos.FirDTO;
@@ -99,6 +100,16 @@ public class ComplaintServiceImpl implements ComplaintService {
 			firDTO.setStatus(status.name());
 			return firDTO;
 				}
+		).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<FirDTO> getAllFIRs(String principal) {
+
+		Citizen citizen = citizenDao.findByBaseEntityUserEmail(principal).orElseThrow(()->new ResourseNotFound("Invalid citizen!"));
+		List<FirstInformationReport> FIRs = firDao.findByComplaint_Citizen(citizen);
+
+		return FIRs.stream().map((fir)->mapper.map(fir, FirDTO.class)
 		).collect(Collectors.toList());
 	}
 

@@ -18,5 +18,7 @@ public interface ComplaintService {
 
 	List<FirDTO> getListOfComplaintByStatus(Long citizen_id, StatusEnum status);
 
+	List<FirDTO> getAllFIRs(String principal);
+
 
 }

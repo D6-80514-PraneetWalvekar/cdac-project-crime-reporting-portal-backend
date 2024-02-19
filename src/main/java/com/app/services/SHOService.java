@@ -1,6 +1,7 @@
 package com.app.services;
 
 import com.app.dtos.*;
+import com.app.entities.FirstInformationReport;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface SHOService {
     public String acceptComplaint(String email,Long complaint_id, IOEmailDTO ioEmail);
 
     IoDTO addIO(String email, IOPostDTO ioAdd);
+
+    List<FirDTO> getFIRs(String email);
 }
 

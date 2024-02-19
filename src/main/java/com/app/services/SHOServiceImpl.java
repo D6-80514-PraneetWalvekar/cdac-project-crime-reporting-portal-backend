@@ -70,6 +70,14 @@ public class SHOServiceImpl implements SHOService{
     }
 
     @Override
+    public List<FirDTO> getFIRs(String email) {
+        StationHouseOfficer sho = shoDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SHO ID invalid"));
+        List<FirstInformationReport> FIRs = firDao.findByInvestigatingOfficer_Station(sho.getStation());
+        return FIRs.stream().map((fir)->mapper.map(fir, FirDTO.class)
+        ).collect(Collectors.toList());
+    }
+
+    @Override
     public List<IoDTO> getIOs(String email) {
         List<InvestigatingOfficer> investigatingOfficers = shoDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SHO ID invalid"))
                 .getStation().getIoOfficers();
