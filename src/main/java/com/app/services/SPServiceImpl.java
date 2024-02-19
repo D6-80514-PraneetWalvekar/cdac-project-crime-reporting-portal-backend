@@ -76,15 +76,16 @@ public class SPServiceImpl implements SPService{
     @Override
     public TransferDTO transferSHO(String email, TransferDTO transferDTO) {
 
-        PoliceStation ps1 = psDao.findById(transferDTO.getPsOneID()).orElseThrow(()->new ResourseNotFound("could not get!"));
-        PoliceStation ps2 = psDao.findById(transferDTO.getPsTwoID()).orElseThrow(()->new ResourseNotFound("could not get!"));
+        StationHouseOfficer sho1 = shoDao.findByBaseEntityUserEmail(transferDTO.getShoOneEmail()).orElseThrow(()->new ResourseNotFound("SHO not found"));
+        PoliceStation ps2 = psDao.findPoliceStationByAddress(transferDTO.getPsTwoAddress()).orElseThrow(()->new ResourseNotFound("PS not found"));
 
+        StationHouseOfficer sho2 = shoDao.findByBaseEntityUserEmail(transferDTO.getShoTwoEmail()).orElseThrow(()->new ResourseNotFound("SHO not found"));
+        PoliceStation ps1 = psDao.findPoliceStationByAddress(transferDTO.getPsOneAddress()).orElseThrow(()->new ResourseNotFound("PS not found"));
 
-        StationHouseOfficer sho1 = shoDao.findById(transferDTO.getShoOneID()).orElseThrow(()->new ResourseNotFound("could not get!"));
-        StationHouseOfficer sho2 = shoDao.findById(transferDTO.getShoTwoID()).orElseThrow(()->new ResourseNotFound("could not get!"));
 
         if(!ps1.getSho().equals(sho1) || !ps2.getSho().equals(sho2))
             return null;
+
         ps1.setSho(sho2);
         sho2.setStation(ps1);
 
@@ -92,6 +93,6 @@ public class SPServiceImpl implements SPService{
         sho1.setStation(ps2);
 
 
-        return new TransferDTO(sho2.getID(), ps2.getID(), sho1.getID(), ps2.getID());
+        return new TransferDTO(sho2.getFName(), ps1.getAddress(), sho1.getFName(), ps2.getAddress());
     }
 }
