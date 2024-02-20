@@ -43,4 +43,12 @@ public class PoliceStation extends BaseEntity{
 
 	@ManyToOne
 	private SPOfficer spOfficer;
+
+	public PoliceStation(String address, String district, String state, String pincode,  SPOfficer spOfficer) {
+		this.address = address;
+		this.district = district;
+		this.state = state;
+		this.pincode = pincode;
+		this.spOfficer = spOfficer;
+	}
 }
