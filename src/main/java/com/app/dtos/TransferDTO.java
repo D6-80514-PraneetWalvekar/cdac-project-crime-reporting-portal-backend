@@ -8,8 +8,10 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class TransferDTO {
-    private Long shoOneID;
-    private Long psOneID;
-    private Long shoTwoID;
-    private Long psTwoID;
+    private String shoOneEmail;
+    private String psTwoAddress;
+
+
+    private String shoTwoEmail;
+    private String psOneAddress;
 }

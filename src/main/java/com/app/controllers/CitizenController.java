@@ -2,6 +2,7 @@ package com.app.controllers;
 
 import java.time.LocalDateTime;
 
+import com.app.dtos.FirDTO;
 import com.app.utilities.ApiResponseArray;
 import com.app.utilities.ApiResponseData;
 import com.app.utilities.ApiResponseStatus;
@@ -50,6 +51,13 @@ public class CitizenController {
 	@GetMapping("/all-complaints")
 	public ResponseEntity<?>getAllComplaints(@AuthenticationPrincipal String principal){
 		ApiResponseArray<ComplaintDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,complaintService.getCompById(principal),LocalDateTime.now());
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(apiResponseData);
+	}
+
+	@GetMapping("/all-FIRs")
+	public ResponseEntity<?>getAllFIRs(@AuthenticationPrincipal String principal){
+		ApiResponseArray<FirDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,complaintService.getAllFIRs(principal),LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(apiResponseData);
 	}
