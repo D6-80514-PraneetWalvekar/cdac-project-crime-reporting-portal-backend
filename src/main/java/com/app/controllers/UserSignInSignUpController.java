@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.app.dtos.SigninRequest;
 import com.app.dtos.SigninResponse;
@@ -21,6 +18,7 @@ import com.app.dtos.Signup;
 import com.app.security.JwtUtils;
 
 @RestController
+@CrossOrigin()
 @RequestMapping("/users")
 public class UserSignInSignUpController {
 	@Autowired

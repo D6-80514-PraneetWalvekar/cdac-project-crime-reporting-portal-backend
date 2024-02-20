@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
+@CrossOrigin()
 @RequestMapping("/IO")
 @PreAuthorize("hasRole('IO')")
 public class IOController {
