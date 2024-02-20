@@ -29,7 +29,7 @@ public class Citizen extends BaseEntity  {
 
 	@OneToOne
 	@MapsId
-			@JoinColumn(name = "citizen_id")
+	@JoinColumn(name = "citizen_id")
 	BaseEntityUsers baseEntityUser;
 
 	@Enumerated(EnumType.STRING)
@@ -43,7 +43,7 @@ public class Citizen extends BaseEntity  {
 	private String lName;
 
 	@Column
-	private Integer age;
+	private int age;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate DOB;

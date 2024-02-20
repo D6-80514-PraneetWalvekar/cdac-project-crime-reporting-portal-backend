@@ -26,6 +26,7 @@ import lombok.ToString;
 @ToString
 public class CitizenGetDTO {
 
+	private Long Id ;
 	private String baseEntityUserFName;
 	private String baseEntityUserLName;
 	@Email(message = "Invalid Email!!!")

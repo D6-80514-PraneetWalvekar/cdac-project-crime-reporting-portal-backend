@@ -42,7 +42,7 @@ public class SecurityConfig {
 		.disable().
 		authorizeRequests()
 		.antMatchers("/users/signup","/users/signin",
-				"/v*/api-doc*/**","/swagger-ui/**").permitAll()
+				"/v*/api-doc*/**","/swagger-ui/**","/sendMail").permitAll()
 		.antMatchers("/citizen").hasRole("CITIZEN")
 				.antMatchers("/IO").hasRole("IO")
 				.antMatchers("/SHO").hasRole("SHO")
