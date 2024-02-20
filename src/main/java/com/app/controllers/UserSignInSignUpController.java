@@ -2,6 +2,7 @@ package com.app.controllers;
 
 import javax.validation.Valid;
 
+import com.app.entities.enums.RoleEnum;
 import com.app.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,18 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.web.bind.annotation.*;
 
 import com.app.dtos.SigninRequest;
 import com.app.dtos.SigninResponse;
 import com.app.dtos.Signup;
 import com.app.security.JwtUtils;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserSignInSignUpController {
 	@Autowired
 	private UserService userService;
@@ -56,9 +58,11 @@ public class UserSignInSignUpController {
 				.authenticate(new UsernamePasswordAuthenticationToken
 						(reqDTO.getEmail(), reqDTO.getPassword()));
 		System.out.println(verifiedAuth.getClass());// Custom user details
+		Collection<? extends GrantedAuthority> role = verifiedAuth.getAuthorities();
+		Object[] roleArray = role.toArray();
 		// => auth success
 		return ResponseEntity
-				.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), "Successful Authentication!!!"));
+				.ok(new SigninResponse(utils.generateJwtToken(verifiedAuth), "Successful Authentication!!!", roleArray[0]));
 
 	}
 
