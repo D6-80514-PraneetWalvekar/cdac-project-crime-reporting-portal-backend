@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import com.app.entities.Address;
 import com.app.entities.enums.GenderEnum;
 import com.app.entities.enums.RoleEnum;
 import com.app.entities.enums.TitleEnum;
@@ -21,7 +22,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 @Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor 
+@AllArgsConstructor
 public class Signup {
 
 	@JsonProperty(access = Access.READ_ONLY) // this property only used during ser.
@@ -41,6 +43,9 @@ public class Signup {
 	private String fatherName;
 	private String aaddharNo;
 	private String occupation;
+
+	private Address currentAddress;
+	private Address permanentAddress;
 
 	
 	

@@ -22,10 +22,8 @@ public class CitizenServiceImpl implements CitizenService {
 	
 	@Autowired
 	private CitizenDAO citizenDao;
-
 	@Autowired
 	private BaseEntityUsersDao baseEntityUsersDao;
-
 	@Autowired
 	private ModelMapper mapper;
 	
@@ -34,7 +32,7 @@ public class CitizenServiceImpl implements CitizenService {
 		Citizen us =  citizenDao.findById(user_id).orElseThrow();
 				return mapper.map(us,CitizenGetDTO.class);
 	}
-
+	
 	@Override
 	public CitizenGetDTO getUserByEmail(String email) {
 		Long id = baseEntityUsersDao.findByEmail(email).orElseThrow(()->new ResourseNotFound("user not found:<")).getID();
@@ -49,7 +47,7 @@ public class CitizenServiceImpl implements CitizenService {
 				.map(user -> mapper.map(user,CitizenGetDTO.class))
 				.collect(Collectors.toList());
 	}
-
+	
 	@Override
 	public String addNewUser(CitizenPostDTO us) {
 		Citizen newUser = mapper.map(us, Citizen.class);
