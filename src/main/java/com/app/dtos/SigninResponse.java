@@ -1,5 +1,6 @@
 package com.app.dtos;
 
+import com.app.entities.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,4 +13,5 @@ import lombok.Setter;
 public class SigninResponse {
 	private String jwt;
 	private String mesg;
+	private Object role;
 }

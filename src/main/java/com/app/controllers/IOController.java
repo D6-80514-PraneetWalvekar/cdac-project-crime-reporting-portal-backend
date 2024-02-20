@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/IO")
 @PreAuthorize("hasRole('IO')")
+@CrossOrigin
 public class IOController {
 
     @Autowired
