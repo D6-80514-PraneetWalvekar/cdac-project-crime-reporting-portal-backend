@@ -2,6 +2,7 @@ package com.app.security;
 
 import java.util.List;
 
+import com.app.entities.enums.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +43,7 @@ public class SecurityConfig {
 		.disable().
 		authorizeRequests()
 		.antMatchers("/users/signup","/users/signin",
-				"/v*/api-doc*/**","/swagger-ui/**","/sendMail").permitAll()
+				"/v*/api-doc*/**","/swagger-ui/**","/sendMail","/citizen/**","/IO/**","/SHO/**","/SP/**").permitAll()
 		.antMatchers("/citizen").hasRole("CITIZEN")
 				.antMatchers("/IO/complaints").hasRole("IO")
 				.antMatchers("/SHO/**").hasRole("SHO")

@@ -29,11 +29,11 @@ public class IOServiceImpl implements IOService{
     FIRDao firDao;
 
     @Override
-    public List<ComplaintsDTO> getComplaints(String email) {
+    public List<FirIoDTO> getComplaints(String email) {
         return ioDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("Could not get")).getCases()
                 .stream().map((fir)->{
-                    ComplaintsDTO dto =mapper.map(fir.getComplaint(), ComplaintsDTO.class);
-                    dto.setComplainant(fir.getComplaint().getCitizen().getFName());
+                    FirIoDTO dto =mapper.map(fir, FirIoDTO.class);
+                    dto.setComplaintCitizenFName(fir.getComplaint().getCitizen().getFName());
                     return dto;
                 }).collect(Collectors.toList());
     }
@@ -46,5 +46,18 @@ public class IOServiceImpl implements IOService{
         fir.setRemark(complaintDTO.getRemark());
         fir.setStatusEnum(complaintDTO.getStatusEnum());
         return "Complaint updated successfully";
+    }
+
+    @Override
+    public List<FirIoDTO> getComplaintByComplaintId(String email, Long complaintId) {
+        return ioDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("Could not get")).getCases()
+                .stream().map((fir)->{
+                    FirIoDTO dto = null;
+                    if(fir.getComplaint().getID() == complaintId){
+                        dto =mapper.map(fir, FirIoDTO.class);
+                        dto.setComplaintCitizenFName(fir.getComplaint().getCitizen().getFName());
+                    }
+                    return dto;
+                }).collect(Collectors.toList());
     }
 }

@@ -1,5 +1,6 @@
 package com.app.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ComplaintsDTO {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Long id;
     private String complainant;
     private String incidentDescription;
     private LocalDate incidentDate;
