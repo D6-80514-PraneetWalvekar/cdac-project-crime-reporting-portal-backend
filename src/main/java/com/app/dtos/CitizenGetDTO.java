@@ -26,24 +26,25 @@ import lombok.ToString;
 @ToString
 public class CitizenGetDTO {
 
-	private Long Id ;
-	private String baseEntityUserFName;
-	private String baseEntityUserLName;
+
+	private String fName;
+	private String lName;
+
 	@Email(message = "Invalid Email!!!")
 	private String baseEntityUserEmail;
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String baseEntityUserPassword;
 	private RoleEnum baseEntityUserRole;
 
-	private String baseEntityUserMobileNo;
-	private GenderEnum baseEntityUserGender;
-	private LocalDate baseEntityUserDOB;
-	private Integer baseEntityUserAge;
+	private String mobileNo;
+	private GenderEnum gender;
+	private LocalDate DOB;
+	private Integer age;
 
 	private String fatherName;
 	private String aaddharNo;
 	private String occupation;
 	
-	private TitleEnum baseEntityUserTitle;
+	private TitleEnum title;
 
 }

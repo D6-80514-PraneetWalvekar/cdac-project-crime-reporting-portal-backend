@@ -39,7 +39,6 @@ public class ComplaintServiceImpl implements ComplaintService {
 	@Autowired
 	private ModelMapper mapper;
 
-	
 	@Override
 	public List<ComplaintDTO> getCompById(String principal) {
 		List<Complaint> comp = citizenDao.findByBaseEntityUserEmail(principal).orElseThrow().getComplaints();
