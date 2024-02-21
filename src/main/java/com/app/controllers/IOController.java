@@ -2,6 +2,7 @@ package com.app.controllers;
 
 import com.app.dtos.ComplaintDTO;
 import com.app.dtos.ComplaintsDTO;
+import com.app.dtos.FirIoDTO;
 import com.app.dtos.IOupdateComplaintDTO;
 import com.app.services.IOService;
 import com.app.utilities.ApiResponseArray;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
+@CrossOrigin()
 @RequestMapping("/IO")
 @PreAuthorize("hasRole('IO')")
-@CrossOrigin
 public class IOController {
 
     @Autowired
@@ -25,7 +26,7 @@ public class IOController {
     @GetMapping("/complaints")
     public ResponseEntity<?> getComplaints(@AuthenticationPrincipal String principal)
     {
-        ApiResponseArray<ComplaintsDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,ioService.getComplaints(principal), LocalDateTime.now());
+        ApiResponseArray<FirIoDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,ioService.getComplaints(principal), LocalDateTime.now());
         return ResponseEntity.ok().body( apiResponseData);
     }
     @PutMapping("/complaints/{complaint_id}/update")
@@ -33,6 +34,13 @@ public class IOController {
     {
         ApiResponseData<String> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,ioService.updateComplaint(principal, complaint_id, updateComplaint),LocalDateTime.now());
         return ResponseEntity.ok().body(apiResponseData);
+    }
+
+    @GetMapping("/complaints/{complaintId}")
+    public ResponseEntity<?> getComplaints(@AuthenticationPrincipal String principal,@PathVariable Long complaintId)
+    {
+        ApiResponseArray<FirIoDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,ioService.getComplaintByComplaintId(principal,complaintId), LocalDateTime.now());
+        return ResponseEntity.ok().body( apiResponseData);
     }
 
 }

@@ -27,9 +27,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		System.out.println("inside doFilterInternal");
 		// check auth header from incoming request
 		String authHeader = request.getHeader("Authorization");
 		if (authHeader != null && authHeader.startsWith("Bearer ")) {
+			System.out.println("inside jwt filter true");
 			// => req header contains JWT
 			String jwt = authHeader.substring(7);
 			// validate JWT
@@ -38,6 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			String email = utils.getUserNameFromJwtToken(payloadClaims);
 			// get granted authorities as a custom claim
 			List<GrantedAuthority> authorities = utils.getAuthoritiesFromClaims(payloadClaims);
+			System.out.println(authorities);
 			// add username/email n granted authorities in Authentication object
 			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, null,
 					authorities);

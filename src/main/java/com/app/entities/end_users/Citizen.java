@@ -43,7 +43,7 @@ public class Citizen extends BaseEntity  {
 	private String lName;
 
 	@Column
-	private Integer age;
+	private int age;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate DOB;

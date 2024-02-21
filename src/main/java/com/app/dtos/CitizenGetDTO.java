@@ -26,8 +26,10 @@ import lombok.ToString;
 @ToString
 public class CitizenGetDTO {
 
+
 	private String fName;
 	private String lName;
+
 	@Email(message = "Invalid Email!!!")
 	private String baseEntityUserEmail;
 	@JsonProperty(access = Access.WRITE_ONLY)
