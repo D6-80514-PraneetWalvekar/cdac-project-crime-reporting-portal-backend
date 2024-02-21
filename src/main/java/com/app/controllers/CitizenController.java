@@ -12,9 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
 import com.app.dtos.ComplaintDTO;
-import com.app.dtos.CitizenGetDTO;
+import com.app.dtos.EmailDTO;
+import com.app.dtos.CitizenGetDTO; 
 import com.app.services.CitizenService;
 import com.app.services.ComplaintService;
 
@@ -36,6 +36,12 @@ public class CitizenController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(apiResponseData);
 	}
+//	@PostMapping("/current-citizen")
+//	public ResponseEntity<?> getCurrentUser(@RequestBody EmailDTO mail){
+//		ApiResponseData<CitizenGetDTO> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,userService.getUserByEmail(mail.getEmail()),LocalDateTime.now());
+//		return ResponseEntity.status(HttpStatus.OK)
+//				.body(apiResponseData);
+//	}
 //	@GetMapping
 //	public ResponseEntity<?> getAllUsers(){
 //		ApiResponseArray<CitizenGetDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,userService.findAllUser(),LocalDateTime.now());
@@ -54,7 +60,7 @@ public class CitizenController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(apiResponseData);
 	}
-
+	
 	@GetMapping("/all-FIRs")
 	public ResponseEntity<?>getAllFIRs(@AuthenticationPrincipal String principal){
 		ApiResponseArray<FirDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,complaintService.getAllFIRs(principal),LocalDateTime.now());
@@ -66,7 +72,6 @@ public class CitizenController {
 		ApiResponseData<ComplaintDTO> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,complaintService.addNewComplaint(principal,newComp),LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(apiResponseData);
-		
 	}
 	@DeleteMapping("/delete-complaint/{complaint_id}")
 	public ResponseEntity<?> deleteComplaint(@AuthenticationPrincipal String principal, @PathVariable Long complaint_id ){

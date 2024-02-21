@@ -43,10 +43,16 @@ public class SecurityConfig {
 		authorizeRequests()
 		.antMatchers("/users/signup","/users/signin",
 				"/v*/api-doc*/**","/swagger-ui/**").permitAll()
-		.antMatchers("/citizen").hasRole("CITIZEN")
-				.antMatchers("/IO").hasRole("IO")
-				.antMatchers("/SHO").hasRole("SHO")
-				.antMatchers("/SP").hasRole("SP")
+		.antMatchers("/citizen").permitAll()
+				.antMatchers("/IO").permitAll()
+				.antMatchers("/SHO").permitAll()
+				.antMatchers("/SP").permitAll()
+//		.antMatchers("/users/signup","/users/signin",
+//				"/v*/api-doc*/**","/swagger-ui/**").permitAll()
+//		.antMatchers("/citizen").hasRole("CITIZEN")
+//				.antMatchers("/IO").hasRole("IO")
+//				.antMatchers("/SHO").hasRole("SHO")
+//				.antMatchers("/SP").hasRole("SP")
 		.anyRequest().authenticated()
 		.and()
 		//to tell spring sec : not to use HttpSession to store user's auth details

@@ -18,9 +18,7 @@ public class FirDTO {
     private String complaintIncidentPlace;
     private String complaintWitness;
     private String complaintAdditionalInfo;
-
     private String remark;
     private String status;
-
     private String investigatingOfficerFName;
 }

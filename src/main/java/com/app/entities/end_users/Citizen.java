@@ -29,7 +29,7 @@ public class Citizen extends BaseEntity  {
 
 	@OneToOne
 	@MapsId
-			@JoinColumn(name = "citizen_id")
+	@JoinColumn(name = "citizen_id")
 	BaseEntityUsers baseEntityUser;
 
 	@Enumerated(EnumType.STRING)
