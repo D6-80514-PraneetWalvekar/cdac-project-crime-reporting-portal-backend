@@ -1,9 +1,7 @@
 package com.app.controllers;
 
-import com.app.dtos.ComplaintDTO;
-import com.app.dtos.ComplaintsDTO;
-import com.app.dtos.FirIoDTO;
-import com.app.dtos.IOupdateComplaintDTO;
+import com.app.dtos.*;
+import com.app.entities.end_users.InvestigatingOfficer;
 import com.app.services.IOService;
 import com.app.utilities.ApiResponseArray;
 import com.app.utilities.ApiResponseData;
@@ -12,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
@@ -41,6 +40,13 @@ public class IOController {
     {
         ApiResponseArray<FirIoDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,ioService.getComplaintByComplaintId(principal,complaintId), LocalDateTime.now());
         return ResponseEntity.ok().body( apiResponseData);
+    }
+
+
+    @GetMapping
+    public ResponseEntity<?> getIoDetails(@AuthenticationPrincipal String principal){
+        ApiResponseData<IoDetailDTO> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,ioService.getIoDetails(principal),LocalDateTime.now());
+        return ResponseEntity.ok().body(apiResponseData);
     }
 
 }
