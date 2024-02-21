@@ -29,7 +29,6 @@ import com.app.security.JwtUtils;
 import java.util.Collection;
 
 @RestController
-@CrossOrigin()
 @RequestMapping("/users")
 @CrossOrigin()
 public class UserSignInSignUpController {
