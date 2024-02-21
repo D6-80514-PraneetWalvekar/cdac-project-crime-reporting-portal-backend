@@ -11,6 +11,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class FirDTO {
 
+    private Long complaintId;
+    private String complaintPoliceStationAddress;
     private String complaintCitizenFName;
     private String complaintIncidentDescription;
     private LocalDate complaintIncidentDate;
