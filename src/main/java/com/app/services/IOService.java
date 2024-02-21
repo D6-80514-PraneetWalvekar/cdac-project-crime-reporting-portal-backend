@@ -1,8 +1,6 @@
 package com.app.services;
 
-import com.app.dtos.FirIoDTO;
-import com.app.dtos.IOupdateComplaintDTO;
-import com.app.dtos.ComplaintsDTO;
+import com.app.dtos.*;
 
 import java.util.List;
 
@@ -12,6 +10,8 @@ public interface IOService {
     public String updateComplaint(String email, Long complaint_id, IOupdateComplaintDTO updateComplaint);
 
     public List<FirIoDTO> getComplaintByComplaintId(String email, Long complaintId);
+
+    public IoDetailDTO getIoDetails(String email);
 
 
 }

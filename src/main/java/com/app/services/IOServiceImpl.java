@@ -60,4 +60,11 @@ public class IOServiceImpl implements IOService{
                     return dto;
                 }).collect(Collectors.toList());
     }
+
+    @Override
+    public IoDetailDTO getIoDetails(String email) {
+        IoDetailDTO dto = mapper.map(ioDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("Could not get")),IoDetailDTO.class);
+
+        return dto;
+    }
 }
