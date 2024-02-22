@@ -16,6 +16,7 @@ import com.app.dtos.*;
 import java.time.LocalDateTime;
 
 @RestController
+@CrossOrigin()
 @RequestMapping("/SHO")
 @PreAuthorize("hasRole('SHO')")
 public class SHOController {
@@ -38,9 +39,9 @@ public class SHOController {
     }
 
     @GetMapping("/police-station/all-IO")
-    public ResponseEntity<ApiResponseArray<IoDTO>> getInvestigatingOfficers(@AuthenticationPrincipal String principal)
+    public ResponseEntity<ApiResponseArray<IoDetailDTO>> getInvestigatingOfficers(@AuthenticationPrincipal String principal)
     {
-        ApiResponseArray<IoDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,shoService.getIOs(principal),LocalDateTime.now());
+        ApiResponseArray<IoDetailDTO> apiResponseData = new ApiResponseArray<>(ApiResponseStatus.SUCCESS,shoService.getIOs(principal),LocalDateTime.now());
         return ResponseEntity.ok().body(apiResponseData);
     }
 
@@ -63,5 +64,11 @@ public class SHOController {
     {
         ApiResponseData<IoDTO> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,shoService.addIO(principal, ioAdd),LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponseData);
+    }
+
+    @PutMapping("/complaint/{complaintId}")
+    public ResponseEntity<?> rejectComplaint(@AuthenticationPrincipal String principal, @PathVariable Long complaintId){
+        ApiResponseData<String> apiResponseData = new ApiResponseData<>(ApiResponseStatus.SUCCESS,shoService.rejectComplaint(principal,complaintId),LocalDateTime.now());
+        return ResponseEntity.ok().body(apiResponseData);
     }
 }

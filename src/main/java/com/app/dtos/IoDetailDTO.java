@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class IoDetailDTO {
 
+    private Long id;
     private String fName;
     private String lName;
 

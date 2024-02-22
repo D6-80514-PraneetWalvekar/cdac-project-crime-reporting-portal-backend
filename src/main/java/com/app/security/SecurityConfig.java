@@ -46,7 +46,7 @@ public class SecurityConfig {
 				"/v*/api-doc*/**","/swagger-ui/**","/sendMail","/citizen/**","/IO/**","/SHO/**","/SP/**").permitAll()
 		.antMatchers("/citizen").hasRole("CITIZEN")
 				.antMatchers("/IO/complaints").hasRole("IO")
-				.antMatchers("/SHO/**").hasRole("SHO")
+				.antMatchers("/SHO").hasRole("SHO")
 				.antMatchers("/SP/**").hasRole("SP")
 		.anyRequest().authenticated()
 		.and()

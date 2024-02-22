@@ -10,12 +10,14 @@ public interface SHOService {
     public PsDTO getPSDetails(String email);
     public List<ComplaintsDTO> getComplaints(String email);
 
-    public List<IoDTO> getIOs(String email);
+    public List<IoDetailDTO> getIOs(String email);
 
     public String acceptComplaint(String email,Long complaint_id, IOEmailDTO ioEmail);
 
     IoDTO addIO(String email, IOPostDTO ioAdd);
 
     List<FirDTO> getFIRs(String email);
+
+    String rejectComplaint(String principal,Long complaintId);
 }
 
