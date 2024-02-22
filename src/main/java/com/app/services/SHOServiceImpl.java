@@ -78,10 +78,10 @@ public class SHOServiceImpl implements SHOService{
     }
 
     @Override
-    public List<IoDTO> getIOs(String email) {
+    public List<IoDetailDTO> getIOs(String email) {
         List<InvestigatingOfficer> investigatingOfficers = shoDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SHO ID invalid"))
                 .getStation().getIoOfficers();
-        return investigatingOfficers.stream().map((io)->mapper.map(io, IoDTO.class)).collect(Collectors.toList());
+        return investigatingOfficers.stream().map((io)->mapper.map(io, IoDetailDTO.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -106,5 +106,15 @@ public class SHOServiceImpl implements SHOService{
         io.getBaseEntityUser().setRole(RoleEnum.ROLE_IO);
         io.getBaseEntityUser().setPassword(encoder.encode(io.getBaseEntityUser().getPassword()));
         return  mapper.map(ioDao.save(io), IoDTO.class);
+    }
+
+    public String rejectComplaint(String email, Long complaintID){
+        List<Complaint> complaint = shoDao.findByBaseEntityUserEmail(email).orElseThrow(()->new ResourseNotFound("SHO ID invalid")).getStation().getComplaints();
+        complaint.stream().filter((com)->com.getID()==complaintID)
+                .map(com->{com.setFIR(false);
+                        return com;})
+                .collect(Collectors.toList());
+
+        return "Complaint rejected";
     }
 }

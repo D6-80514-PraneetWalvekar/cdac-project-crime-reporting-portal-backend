@@ -74,10 +74,16 @@ class ApplicationTests {
 	@Test
 	void insertIO()
 	{
-		PoliceStation ps3 = stationDao.getReferenceById(1L);
-		BaseEntityUsers baseEntityUsers = new BaseEntityUsers("io@police.com", encoder.encode("1111"), RoleEnum.ROLE_IO);
-		InvestigatingOfficer  io = new InvestigatingOfficer(baseEntityUsers,TitleEnum.Mr,"io1", "sir", 34,LocalDate.parse("1990-02-10"),GenderEnum.MALE, "129038721", "Inspector",LocalDate.parse("2012-10-12"),DutyStatus.ACTIVE,ps3,null);
+		PoliceStation ps3 = stationDao.getReferenceById(3L);
+		BaseEntityUsers baseEntityUsers = new BaseEntityUsers("ashish@police.com", encoder.encode("1111"), RoleEnum.ROLE_IO);
+		InvestigatingOfficer  io = new InvestigatingOfficer(baseEntityUsers,TitleEnum.Mr,"Ashish", "Singh", 34,LocalDate.parse("1991-04-11"),GenderEnum.MALE, "129038221", "Inspector",LocalDate.parse("2012-10-12"),DutyStatus.ACTIVE,ps3,null);
 		ioDao.save(io);
+
+		PoliceStation ps2 = stationDao.getReferenceById(3L);
+		BaseEntityUsers baseEntityUsers1 = new BaseEntityUsers("amar@police.com", encoder.encode("1111"), RoleEnum.ROLE_IO);
+		InvestigatingOfficer  io1 = new InvestigatingOfficer(baseEntityUsers1,TitleEnum.Mr,"Amar", "Sulunke", 32,LocalDate.parse("1992-03-22"),GenderEnum.MALE, "123880721", "Inspector",LocalDate.parse("2014-02-10"),DutyStatus.ACTIVE,ps2,null);
+		ioDao.save(io1);
+
 //		  io = new InvestigatingOfficer(io,TitleEnum.Miss, "mmmmm", "dddd", 29, LocalDate.parse("1994-01-23"),GenderEnum.FEMALE,"0987654322","Inspector",LocalDate.parse("2018-09-02"),DutyStatus.ACTIVE,stationDao.findById(3L).get());
 //		ioDao.save(io);
 //		  io = new InvestigatingOfficer("io3", "sir", "io3@police.com", "1234124", stationDao.findById(4L).get());
